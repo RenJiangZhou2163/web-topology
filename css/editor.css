@@ -744,10 +744,11 @@
 	background-color: #c7dbfc;
 }
 
+/*背景*/
 .mapContext {
 	overflow: auto;
 	position: relative;
-	background: #fff url(../images/backimg.png);
+	/*background: #fff url(/web-topology/static/img/bgImage/bright.png);*/
 }
 
 .history {

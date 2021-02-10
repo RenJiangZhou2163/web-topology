@@ -27,11 +27,11 @@ js/editor.js
             var m = new JTopo.Link(nodeA, midNode);
             var n = new JTopo.Link(midNode, nodeZ);
             m.lineType = "line";
-            m.strokeColor = self.config.strokeColor;
-            m.lineWidth = self.config.lineWidth;
+            m.strokeColor = self.config.linkStrokeColor;
+            m.lineWidth = self.config.linkDefaultWidth;
             n.lineType = "line";
-            n.strokeColor = self.config.strokeColor;
-            n.lineWidth = self.config.lineWidth;
+            n.strokeColor = self.config.linkStrokeColor;
+            n.lineWidth = self.config.linkDefaultWidth;
             this.add(m);
             this.add(n);
             m.hasPaintMid = true;

@@ -92,7 +92,7 @@
      */
     function showTopology(templateId, canvasId,url) {
         $.ajax({
-            url: context + url,
+            url: rootPath + url,
             async: true,
             type: "POST",
             dataType: "json",

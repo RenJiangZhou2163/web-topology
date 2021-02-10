@@ -225,7 +225,7 @@ topologyProperties.saveVmTemplateTopology=function(){
 	var envTemplateId=$('#envTemplateIdHidden').val();
 	var vmtemplateId=$('#templateIdHidden').val();
 	var moduleId = $("#moduleIdHidden").val();
-    var jtopoNode = editor.utils.getNodeByKey("deviceId",moduleId);
+    var jtopoNode = editor.utils.getNodeByKey("nodeId",moduleId);
     // 获取jTopo.node 
     var nodeJson = jtopoNode.toJson();
     // 替换undefined为# 
@@ -257,7 +257,7 @@ topologyProperties.saveVmTemplateTopology=function(){
 	
 	$('#saveVmBtn').attr('disabled',true);
 	$.ajax({
-		url:context+'/templateManage/saveVmTemplateTopology',
+		url:rootPath+'/templateManage/saveVmTemplateTopology',
 		async:true,
 		type:'post',
 		data:{
@@ -315,7 +315,7 @@ topologyProperties.saveTopologySwitch = function(){
     var networkId = $("#networkIdHidden").val();
     
     var moduleId = $("#moduleIdHidden").val();
-    var jtopoNode = editor.utils.getNodeByKey("deviceId",moduleId);
+    var jtopoNode = editor.utils.getNodeByKey("nodeId",moduleId);
     // 获取jTopo.node 
     var nodeJson = jtopoNode.toJson();
     // 替换undefined为# 
@@ -338,7 +338,7 @@ topologyProperties.saveTopologySwitch = function(){
     // 设置保存按钮灰掉 
     $("#extchangeSave").attr("disabled",true);
     $.ajax({
-       url: context + "/switchesManage/saveTopologySwitch",
+       url: rootPath + "/switchesManage/saveTopologySwitch",
        async: true,
        type: 'post',
        data: {"networkName": networkName, "displayName": displayName, "networkTypeId":networkTypeId,"envTemplateId": envTemplateId,
@@ -391,7 +391,7 @@ topologyProperties.saveRouterTopology = function(){
     var serviceOffering = $("#serviceOffering4Topology").val();
     
     var moduleId = $("#moduleIdHidden").val();
-    var jtopoNode = editor.utils.getNodeByKey("deviceId",moduleId);
+    var jtopoNode = editor.utils.getNodeByKey("nodeId",moduleId);
     // 获取jTopo.node 
     var nodeJson = jtopoNode.toJson();
     // 替换undefined为# 
@@ -411,7 +411,7 @@ topologyProperties.saveRouterTopology = function(){
     // 设置保存按钮灰掉 
     $("#saveRouterBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/saveTopologyRouter",
+       url: rootPath + "/routerManage/saveTopologyRouter",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerName": routerName, "envTemplateId":envTemplateId,"routerType": routerType,
@@ -487,7 +487,7 @@ topologyProperties.saveRouterConnTopology = function(routerConnectIdHidden,vmvrR
     // 设置保存按钮灰掉 
     $("#"+routerConnSaveBtn).attr("disabled",true);
     $.ajax({
-       url: context + "/vmvrManage/saveTopologyVmvrRouterConn",
+       url: rootPath + "/vmvrManage/saveTopologyVmvrRouterConn",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerConnectId": routerConnectId, "networkId":networkId,"isPublicIp":isPublicIp,
@@ -536,7 +536,7 @@ topologyProperties.saveRouterRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#routerRuleSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/saveTopologyRouterRule",
+       url: rootPath + "/routerManage/saveTopologyRouterRule",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerRuleSetId": routerRuleSetId},
@@ -583,7 +583,7 @@ topologyProperties.saveFirewallEgressRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#firewallEgressSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/saveFireWallEgressRule",
+       url: rootPath + "/routerManage/saveFireWallEgressRule",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerRuleSetId": routerRuleSetId},
@@ -630,7 +630,7 @@ topologyProperties.saveNetworkAclRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#networkAclSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/saveNetworkAclRule",
+       url: rootPath + "/routerManage/saveNetworkAclRule",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerRuleSetId": routerRuleSetId},
@@ -677,7 +677,7 @@ topologyProperties.saveFirewallInRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#firewallInSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/saveFireWallInRule",
+       url: rootPath + "/routerManage/saveFireWallInRule",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerRuleSetId": routerRuleSetId},
@@ -726,7 +726,7 @@ topologyProperties.saveRouterPortforwardRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#portforwardRuleSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/routerManage/savePortForwardRule",
+       url: rootPath + "/routerManage/savePortForwardRule",
        async: true,
        type: 'post',
        data: {"routerId": routerId,"vmId":vmId, "routerRuleSetId": routerRuleSetId},
@@ -775,7 +775,7 @@ topologyProperties.saveRouterVmvrTopology = function(){
     var serviceOffering = $("#serviceOffering4Topology").val();
     
     var moduleId = $("#moduleIdHidden").val();
-    var jtopoNode = editor.utils.getNodeByKey("deviceId",moduleId);
+    var jtopoNode = editor.utils.getNodeByKey("nodeId",moduleId);
     // 获取jTopo.node 
     var nodeJson = jtopoNode.toJson();
     // 替换undefined为# 
@@ -796,7 +796,7 @@ topologyProperties.saveRouterVmvrTopology = function(){
     // 设置保存按钮灰掉 
     $("#saveRouterBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/vmvrManage/saveTopologyVmvrRouter",
+       url: rootPath + "/vmvrManage/saveTopologyVmvrRouter",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerName": routerName, "envTemplateId":envTemplateId,"routerType": routerType,
@@ -867,7 +867,7 @@ topologyProperties.saveVmvrPfRuleTopology = function(){
     // 设置保存按钮灰掉 
     $("#VmvrPfRuleSaveBtn").attr("disabled",true);
     $.ajax({
-       url: context + "/vmvrManage/saveVmvrPfRuleTopology",
+       url: rootPath + "/vmvrManage/saveVmvrPfRuleTopology",
        async: true,
        type: 'post',
        data: {"routerId": routerId, "routerRuleSetId": routerRuleSetId},
@@ -916,7 +916,7 @@ topologyProperties.saveVMVRTopologySwitch = function(){
     var networkId = $("#networkIdHidden").val();
     
     var moduleId = $("#moduleIdHidden").val();
-    var jtopoNode = editor.utils.getNodeByKey("deviceId",moduleId);
+    var jtopoNode = editor.utils.getNodeByKey("nodeId",moduleId);
     // 获取jTopo.node 
     var nodeJson = jtopoNode.toJson();
     // 替换undefined为# 
@@ -937,7 +937,7 @@ topologyProperties.saveVMVRTopologySwitch = function(){
     // 设置保存按钮灰掉 
     $("#extchangeSave").attr("disabled",true);
     $.ajax({
-       url: context + "/vmvrManage/saveTopologyVmvrSwitch",
+       url: rootPath + "/vmvrManage/saveTopologyVmvrSwitch",
        async: true,
        type: 'post',
        data: {"routerId":routerId,"networkName": networkName, "displayName": displayName, "networkTypeId":networkTypeId,"envTemplateId": envTemplateId,

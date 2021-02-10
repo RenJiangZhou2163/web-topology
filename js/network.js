@@ -1,15 +1,15 @@
-var allNetworkProperties={"EC":[{"title":"网络属性","url":context+"extchange-network.html"}],
+var allNetworkProperties={"EC":[{"title":"网络属性","url":rootPath+"extchange-network.html"}],
 		                  "FW":[],
-		                 "VR":[{"title":"网络属性","url":context+"vr-network.html"},
-                               {"title":"路由器连接信息","url":context+"vr-routerconnectinfo.html"},
-                               {"title":"路由规则集","url":context+"vr-routerrule.html"} ,
-		                       {"title":"防火墙出口规则","url":context+"firewalloutrules.html"},
-		                       {"title":"防火墙入口规则","url":context+"firewallinrules.html"},
-		                       /* {"title":"网络访问规则集","url":context+"vr-networkaclruleset.html"},*/
-                              /* {"title":"端口转发规则","url":context+"vr-portforwardrule.html"},*/
-                               {"title":"网络转发规则信息","url":context+"vr-networkPFRuleSet.html"}
-                              /* {"title":"虚拟路由器类型","url":context+"vr-networktype.html"}*/],
-		    		      "VM":[{"title":"虚拟机属性","url":context+"vm.html"}]
+		                 "VR":[{"title":"网络属性","url":rootPath+"vr-network.html"},
+                               {"title":"路由器连接信息","url":rootPath+"vr-routerconnectinfo.html"},
+                               {"title":"路由规则集","url":rootPath+"vr-routerrule.html"} ,
+		                       {"title":"防火墙出口规则","url":rootPath+"firewalloutrules.html"},
+		                       {"title":"防火墙入口规则","url":rootPath+"firewallinrules.html"},
+		                       /* {"title":"网络访问规则集","url":rootPath+"vr-networkaclruleset.html"},*/
+                              /* {"title":"端口转发规则","url":rootPath+"vr-portforwardrule.html"},*/
+                               {"title":"网络转发规则信息","url":rootPath+"vr-networkPFRuleSet.html"}
+                              /* {"title":"虚拟路由器类型","url":rootPath+"vr-networktype.html"}*/],
+		    		      "VM":[{"title":"虚拟机属性","url":rootPath+"vm.html"}]
 		                  };
 var currentid;
 var NetworkTopology = function(a,b)
@@ -100,7 +100,7 @@ NetworkTopology.prototype.selectPanel=function(b,templateid,moduleid)
 
 NetworkTopology.prototype.saveToplogy = function(toplogyXML){
 	$.ajax({
-		url : context + "topology/saveTopologyXML",
+		url : rootPath + "topology/saveTopologyXML",
 		async : true,
 		type : "POST",
 		dataType : "json",
@@ -131,7 +131,7 @@ NetworkTopology.prototype.saveToplogy = function(toplogyXML){
 NetworkTopology.prototype.getEnvTemplate = function(){
 	var envListRes;
 	$.ajax({
-		url : context + "topology/getAllTemplates",
+		url : rootPath + "topology/getAllTemplates",
 		async : false,
 		type : "POST",
 		dataType : "json",
