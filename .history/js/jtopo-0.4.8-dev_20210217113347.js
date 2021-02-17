@@ -139,7 +139,7 @@
               open_hand: ' 8 8, default',
               closed_hand: ' 8 8, default',
               /* open_hand: "url("+rootPath+"/images/openhand.cur) 8 8, default",
-                 closed_hand: "url("+rootPath+"images/closedhand.cur) 8 8, default"*/
+                     closed_hand: "url("+rootPath+"images/closedhand.cur) 8 8, default"*/
             },
 
             // 未知
@@ -568,7 +568,7 @@
 
             this.unsubscribe = function(eventType) {
               var c = b.messageMap[eventType];
-              null != c && (b.messageMap[eventType] = null,
+              null != c && (b.messageMap[eventType] = null ,
                   delete b.messageMap[eventType],
                   b.messageCount--);
             },
@@ -1321,7 +1321,7 @@
               this.frames = 24,
               this.messageBus = new JTopo.util.MessageBus,
               this.eagleEye = eagleEye(this),
-              this.wheelZoom = null,
+              this.wheelZoom = null ,
               this.mouseDownX = 0,
               this.mouseDownY = 0,
               this.mouseDown = !1,
@@ -1335,8 +1335,6 @@
                 'topoLevel',
                 'parentLevel',
                 'nextLevel'],
-              this.topoLevel = '1',
-              this.parentLevel = '0',
               this.nextLevel = '0';
         },
         null != c && this.initialize(c);
@@ -1387,7 +1385,7 @@
                 throw new Error('Stage.remove出错: 参数为null!');
               for (var b = 0; b < this.childs.length; b++)
                 if (this.childs[b] === a)
-                  return a.stage = null,
+                  return a.stage = null ,
                       this.childs = this.childs.del(b),
                       this;
               return this;
@@ -1516,7 +1514,6 @@
 
               return this.childs.forEach(function(b) {
                     var c = b.getElementsBound();
-
                     c.left < a.left && (a.left = c.left, a.leftNode = c.leftNode),
                     c.top < a.top && (a.top = c.top, a.topNode = c.topNode),
                     c.right > a.right &&
@@ -1543,24 +1540,19 @@
                 this.serializedProperties.length;
               }
 
-              // 遍历 this.serializedProperties
-              // a 是 this.serializedProperties 中的元素
+              console.log(c)
+
               return this.serializedProperties.forEach(function(a) {
                 var d = b[a];
-
                 'string' == typeof d && (d = '"' + d + '"'),
                     c += '"' + a + '":' + d + ',';
               }),
                   c += '"childs":[',
-
-                  // 遍历scene
-                  // a 是scene
                   this.childs.forEach(function(a) {
                     c += a.toJson();
                   }),
-
                   c += ']', c += '}';
-            },
+            },  // this.toJson
 
             function() {
               0 == stage.frames ?
@@ -1613,7 +1605,7 @@
       }, JTopo.Stage = Stage;
     }(JTopo),
 
-    // scene
+    //
     function(JTopo) {
       function Scene(c) {
         function d(a, b, c, d) {
@@ -1629,7 +1621,6 @@
         }
 
         var e = this;
-
         this.initialize = function() {
           Scene.prototype.initialize.apply(this, arguments),
               this.messageBus = new JTopo.util.MessageBus,
@@ -1649,9 +1640,9 @@
               this.lastTranslateX = 0,
               this.lastTranslateY = 0,
               this.mouseDown = !1,
-              this.mouseDownX = null,
-              this.mouseDownY = null,
-              this.mouseDownEvent = null,
+              this.mouseDownX = null ,
+              this.mouseDownY = null ,
+              this.mouseDownEvent = null ,
               this.areaSelect = !0,
               this.operations = [],
               this.selectedElements = [],
@@ -1709,8 +1700,6 @@
                       a.fillRect(0, 0, a.canvas.width, a.canvas.height),
                       a.closePath());
             },
-
-            //
             this.getDisplayedElements = function() {
               for (var a = [], b = 0; b < this.zIndexArray.length; b++)
                 for (var c = this.zIndexArray[b], d = this.zIndexMap[c], e = 0; e <
@@ -1770,7 +1759,6 @@
                 }
             },
 
-            //
             this.getOffsetTranslate = function(a) {
               var b = this.stage.canvas.width,
                   c = this.stage.canvas.height;
@@ -2081,8 +2069,8 @@
                           e.dispatchEvent('mousemove', c))) :
                   e.mouseOverelement ? (c.target = d,
                       e.mouseOverelement.mouseoutHandler(c),
-                      e.mouseOverelement = null,
-                      e.dispatchEvent('mouseout', c)) : (c.target = null,
+                      e.mouseOverelement = null ,
+                      e.dispatchEvent('mouseout', c)) : (c.target = null ,
                       e.dispatchEvent('mousemove', c));
             },
 
@@ -2251,17 +2239,14 @@
               a && a(this, this.childs);
             },
 
-            // scene 属性序列化成json数据
+            // 把当前对象的属性序列化成json数据
             this.toJson = function() {
               {
                 var a = this, b = '{';
                 this.serializedProperties.length;
               }
-
-              // scene 属性遍历
               this.serializedProperties.forEach(function(c) {
                 var d = a[c];
-
                 if (typeof d == 'number') {
                   if (c == 'width' || c == 'height') {
                     d = Math.round(d);
@@ -2269,7 +2254,6 @@
                     d = Math.round(d * 100) / 100;
                   }
                 }
-
                 //TODO modify 2014/11/18 ---  更改背景图为空序列化报错
                 /*"background" == c && (d = a._background.src), */
                 'string' == typeof d && (d = '"' + d + '"'),
@@ -2277,12 +2261,12 @@
               }),
                   b += '"childs":[';
               var c = this.childs.length;
-
               return this.childs.forEach(function(a, d) {
                 b += a.toJson(),
                 c > d + 1 && (b += ',');
               }),
-                  b += ']', b += '}';
+                  b += ']',
+                  b += '}';
             }, e;
       }
 
@@ -2463,7 +2447,7 @@
               this.dragable = !1,
               this.selected = !1,
               this.showSelected = !0,
-              this.selectedLocation = null,
+              this.selectedLocation = null ,
               this.isMouseOver = !1;
           //var a = "".split(",");
           //this.serializedProperties = this.serializedProperties.concat(a)
@@ -2590,7 +2574,7 @@
 
             this.unselectedHandler = function() {
               d.prototype.unselectedHandler.apply(this, arguments),
-                  this.selectedSize = null,
+                  this.selectedSize = null ,
                   this.editAble = !1;
             };
 
@@ -2632,7 +2616,7 @@
           }
         },
             this.isInBound = function(a, c) {
-              if (this.selectedPoint = null,
+              if (this.selectedPoint = null ,
               1 == this.editAble)
                 for (var e = 0; e < b.length; e++) {
                   var f = this.getCtrlPosition(b[e]);
@@ -2758,7 +2742,7 @@
               this.fontColor = '255,255,255',
               this.borderWidth = 0,
               this.borderColor = '255,255,255',
-              this.borderRadius = null,
+              this.borderRadius = null ,
               this.dragable = !0,
               this.textPosition = 'Bottom_Center',
               this.textOffsetX = 0,
@@ -2970,7 +2954,7 @@
             this.target = c,
             this.elementType = 'LinkNode',
             this.isVisited = !1,
-            this.visitedColor = null,
+            this.visitedColor = null ,
             this.paint = function(a) {
               a.beginPath(),
                   a.font = this.font,
@@ -3739,7 +3723,7 @@
               this.fillColor = '10,100,80',
               this.borderWidth = 0,
               this.borderColor = '255,255,255',
-              this.borderRadius = null,
+              this.borderRadius = null ,
               this.font = '12px Consolas',
               this.fontColor = '255,255,255',
               this.text = c,
@@ -3764,7 +3748,7 @@
             this.remove = function(a) {
               for (var b = 0; b < this.childs.length; b++)
                 if (this.childs[b] === a) {
-                  a.parentContainer = null,
+                  a.parentContainer = null ,
                       this.childs = this.childs.del(b),
                       a.lastParentContainer = this;
                   break;
@@ -4706,7 +4690,7 @@
                             a.fill()),
                     a.closePath(),
                     a.restore();
-              }, h;
+              }              , h;
         }
 
         function e(c, e) {
@@ -4747,7 +4731,7 @@
         return i.onStop = function(a) {
           return i.onStop = a,
               i;
-        }, i.run = f, i.stop = g, i;
+        }            , i.run = f, i.stop = g, i;
       }
 
       function i(a, b) {
@@ -4785,7 +4769,7 @@
         return i.onStop = function(a) {
           return i.onStop = a,
               i;
-        }, i.run = d, i.stop = e, i;
+        }            , i.run = d, i.stop = e, i;
       }
 
       function j() {
@@ -4867,7 +4851,7 @@
         return g.onStop = function(a) {
           return g.onStop = a,
               g;
-        }, g.run = c, g.stop = d, g;
+        }            , g.run = c, g.stop = d, g;
       }
 
       function n(a, b) {
@@ -5104,7 +5088,7 @@
             b.y = b.y + a * c.y,
         this.paint && this.paint(b.x, b.y),
             this;
-      },
+      }          ,
           c.prototype.move = function(a) {
             var b = this.p
                 ,

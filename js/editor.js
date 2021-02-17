@@ -119,7 +119,7 @@ function propertyPanel(mainControlDiv) {
     parentLevel: 'X',
     nextLevel: 'R',
   };
-};
+}
 
 /**
  * 删除指定数据类型设备的属性面板
@@ -289,7 +289,7 @@ propertyPanel.prototype.createPanel = function(
         moduleId + '&envTemplateId=' + editor.templateId + '&title=' + name +
         '&size=' + size);
   }
-  //连线的时候只保存目标交换机的属性到全局属性变量
+  // 连线的时候只保存目标交换机的属性到全局属性变量
   for (var p = 0; p < size; p++) {
     if (a['ECVR'][p].title == name) return;
   }
@@ -303,7 +303,7 @@ propertyPanel.prototype.createPanel = function(
 };
 
 propertyPanel.prototype.showLoadingWindow = function() {
-  //显示过渡窗口
+  // 显示过渡窗口
   this.loadingWin.dialog({
     width: 200,
     height: 80,
@@ -425,17 +425,24 @@ propertyPanel.prototype.saveTopology = function(showAlert) {
  */
 propertyPanel.prototype.loadTopology = function(
     url, backImg, templateId, topologyId, topoLevel) {
-  if (!topoLevel) topoLevel = '';
-  var self = this;
+
+  if (!topoLevel)
+    topoLevel = '';
+
+  let self = this;
+
   self.showLoadingWindow();
+
   if (!templateId) {
     templateId = editor.templateId;
   }
+
   $.ajax({
     url: url,
     async: false,
     type: 'GET',
-    dataType: 'html',
+    contentType: 'application/json',
+    dataType: 'json',
     data: {
       'templateId': templateId,
       'topologyId': topologyId,
@@ -445,25 +452,64 @@ propertyPanel.prototype.loadTopology = function(
       self.closeLoadingWindow();
       jAlert('服务器异常，请稍后重试..');
     },
+
     success: function(response) {
-      response = JSON.parse(response);
-      var err = response.errorInfo;
       // 错误处理
-      if (err && err != 'ok') {
-        if (err == '-1') {
-          editor.init(backImg, templateId, topologyId, '-1', '');
-        } else if (err == 'logout') {
-          handleSessionTimeOut();
-          return;
-        } else {
-          self.closeLoadingWindow();
-          jAlert(err);
-        }
+      if (response.code !== 200) {
+        console.error(response.msg);
+      } else if (response.code === 200 &&
+          $.isEmptyObject(response.data.topology_json)) {
+
+        // 拓扑不存在,创建一个空白的拓扑图
+        let initTopologyJson = {
+          'version': '0.4.8',
+          'wheelZoom': 0.95,
+          'width': 972,
+          'height': 569,
+          'id': 'ST172.19.105.52015100809430700001',
+          'childs': [
+            {
+              'elementType': 'scene',
+              'id': 'S172.19.105.52015100809430700002',
+              'translateX': -121.82,
+              'translateY': 306.72,
+              'scaleX': 1.26,
+              'scaleY': 1.26,
+              'childs': [],
+            },
+          ],
+        };
+        console.log('TTTTTTTTTTTT');
+        // editor.init(topologyGuid, backImg, initTopologyJson, '');
+        editor.init(backImg, templateId, topologyId, initTopologyJson, '');
       } else {
-        var topologyJson = response.topologyJson;
+        // 拓扑存在,渲染拓扑图
+        let topologyJson = response.data.topology_json;
         editor.init(backImg, templateId, topologyId, topologyJson, '');
       }
     },
+
+    // success: function(response) {
+    //   response = JSON.parse(response);
+    //   var err = response.errorInfo;
+    //
+    //   // 错误处理
+    //   if (err && err != 'ok') {
+    //     if (err == '-1') {
+    //       editor.init(backImg, templateId, topologyId, '-1', '');
+    //     } else if (err == 'logout') {
+    //       handleSessionTimeOut();
+    //       return;
+    //     } else {
+    //       self.closeLoadingWindow();
+    //       jAlert(err);
+    //     }
+    //   } else {
+    //     // 拓扑存在,渲染拓扑图
+    //     var topologyJson = response.data.topology_json;
+    //     editor.init(backImg, templateId, topologyId, topologyJson, '');
+    //   }
+    // },
   });
 };
 
@@ -482,12 +528,12 @@ propertyPanel.prototype.deleteAllNodes = function(templateId) {
         s.clear();
       });
 
-      //连线重置
+      // 连线重置
       editor.beginNode = null;
       editor.link = null;
 
-      //清除属性面板
-      editor.initPropertyPanle();
+      // 清除属性面板
+      editor.initPropertyPanel();
       self.showLoadingWindow();
       $.ajax({
         url: rootPath + 'topologyManage/deleteAllNodes',
@@ -502,7 +548,7 @@ propertyPanel.prototype.deleteAllNodes = function(templateId) {
           jAlert('服务器异常，请稍后重试..');
         },
         success: function(response) {
-          var err = response.errorInfo;
+          let err = response.errorInfo;
           // 错误处理
           if (err && err != 'ok') {
             if (err == 'logout') {
@@ -547,7 +593,7 @@ propertyPanel.prototype.deleteNodeById = function(id, type, dataType) {
       jAlert('服务器异常，请稍后重试..');
     },
     success: function(response) {
-      var err = response.errorInfo;
+      let err = response.errorInfo;
       // 错误处理
       if (err && err != 'ok') {
         if (err == 'logout') {
@@ -561,8 +607,9 @@ propertyPanel.prototype.deleteNodeById = function(id, type, dataType) {
     },
   });
 };
+
 propertyPanel.prototype.getEnvTemplate = function() {
-  var envListRes;
+  let envListRes;
   $.ajax({
     url: rootPath + 'topology/getAllTemplates',
     async: false,
@@ -579,13 +626,14 @@ propertyPanel.prototype.getEnvTemplate = function() {
   return envListRes;
 };
 
-propertyPanel.prototype.initPropertyPanle = function() {
-  var c = this;
-  //回退是清除属性面板
-  for (var datatype in this.props) {
+propertyPanel.prototype.initPropertyPanel = function() {
+  let c = this;
+  // 回退是清除属性面板
+  for (let datatype in this.props) {
     c.clearOldPanels(datatype);
   }
 };
+
 /**
  * 重新加载属性面板页面
  * @param title 属性面板在中文标题
@@ -614,17 +662,16 @@ propertyPanel.prototype.resetPanelProperty = function(
 };
 
 /**
- * 编辑器对象，原型继承属性面板对象,提供编辑器的主要功能
+ * 编辑器对象,原型继承属性面板对象,提供编辑器的主要功能
  * @param mainControl 属性面板主框架
  */
 function networkTopologyEditor(mainControl) {
-  //绘图参数
+  // 绘图参数
   this.config = {
+    // stage属性
     stageFrames: 500,
-    // 滚轮缩放比例
-    defaultScal: 0.95,
-    // 是否显示鹰眼对象
-    eagleEyeVsibleDefault: true,
+    defaultScal: 0.95,                      // 滚轮缩放比例
+    eagleEyeVsibleDefault: true,            // 是否显示鹰眼对象
 
     // Node属性
     nodeDefaultWidth: 32,                   // 新建节点默认宽
@@ -646,19 +693,16 @@ function networkTopologyEditor(mainControl) {
     linkAlpha: 1,                           // 连线透明度,取值范围[0-1]
     linkStrokeColor: '0,200,255',           // 连线的颜色 可以设置为[lineStrokeColor: 'black',]
     linkFillColor: '123,165,241',
-    linkShadow: false,                          // 是否显示连线阴影
+    linkShadow: false,                      // 是否显示连线阴影
     linkShadowColor: 'rgba(0,0,0,0.5)',
-    linkFont: '12px Consolas',                  // 节点字体
-    linkFontColor: 'black',              // 连线文字颜色,如"255,255,0"
+    linkFont: '12px Consolas',              // 节点字体
+    linkFontColor: 'black',                 // 连线文字颜色,如"255,255,0"
     linkArrowsRadius: 0,                      // 线条箭头半径
     linkDefaultWidth: 1,                        // 连线宽度
     linkOffsetGap: 40,                          // 折线拐角处的长度
     linkDirection: 'horizontal',                // 折线的方向
-    linkbundleGap: 4,                            // 线条之间的间隔
+    linkBundleGap: 4,                            // 线条之间的间隔
     linkLineJoin: 'miter',                      //
-
-    //是否显示连线阴影
-    showLineShadow: false,
 
     // Container属性
     containerAlpha: 1,                          // 容器透明度,取值范围[0-1]
@@ -669,47 +713,52 @@ function networkTopologyEditor(mainControl) {
     containerFontColor: '0,0,0',                // 容器文字颜色
     containerTextPosition: 'Middle_Center',     // 容器文字位置
     containerBorderColor: '0,0,0',              //
-    containerBorderRadius: 30,                   //
+    containerBorderRadius: 0,                   //
 
     //节点旋转幅度
     rotateValue: 0.5,
 
-    alpha: 1,
-
-    fillColor: '22,124,255',
-    shadow: false,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    font: '12px Consolas',
-    fontColor: 'black',
-    lineJoin: 'lineJoin',
-    borderColor: '10,10,100',
-    borderRadius: 30,
+    // alpha: 1,
+    //
+    // fillColor: '22,124,255',
+    // shadow: false,
+    // shadowColor: 'rgba(0,0,0,0.5)',
+    // font: '12px Consolas',
+    // fontColor: 'black',
+    // lineJoin: 'lineJoin',
+    // borderColor: '10,10,100',
+    // borderRadius: 30,
     shadowOffsetX: 3,
     shadowOffsetY: 6,
   };
-  //布局参数
+
+  // 布局参数
   this.layout = {};
-  //纪录节点最后一次移动的幅度
+
+  // 纪录节点最后一次移动的幅度
   this.lastMovedX = 0;
   this.lastMovedY = 0;
-  //绘图区属性
+
+  // 绘图区属性
   this.stage = null;
   this.scene = null;
 
-  //连线类型
+  // 连线类型
   this.lineType = 'line';
 
-  //业务数据
+  // 业务数据
   this.currnodeId = null;
   this.currDataType = null;
   this.modeIdIndex = 1;
   this.templateId = null;
 
-  //当前选择的节点对象
+  // 当前选择的节点对象
   this.currentNode = null;
-  //节点邮件菜单DOM对象
+
+  // 节点邮件菜单DOM对象
   this.nodeMainMenu = $('#nodeMainMenu');
-  //连线邮件菜单DOM
+
+  // 连线邮件菜单DOM
   this.lineMenu = $('#lineMenu');
   //全局菜单
   this.mainMenu = $('#mainMenu');
@@ -721,25 +770,27 @@ function networkTopologyEditor(mainControl) {
   this.nodeTextPosMenu = $('#nodeTextPosMenu');
   // 设备节点文字编辑框
   this.deviceEditText = $('#deviceText');
-  //节点分组菜单
+
+  // 节点分组菜单
   this.groupMangeMenu = $('#groupMangeMenu');
-  //节点对齐菜单
+  // 节点对齐菜单
   this.groupAlignMenu = $('#groupAlignMenu');
   this.alignGroup = $('#alignGroup');
-  //容器管理菜单
+  // 容器管理菜单
   this.containerMangeMenu = $('#containerMangeMenu');
-  //拓扑层次导航
+  // 拓扑层次导航
   this.selectLevel;
-  //是否显示参考线
+  // 是否显示参考线
   this.showRuleLine = true;
-  //标尺线数组
+  // 标尺线数组
   this.ruleLines = [];
-  //调用构造函数
+  // 调用构造函数
   propertyPanel.call(this, document.getElementById(mainControl));
 }
 
 //原型继承
 networkTopologyEditor.prototype = new propertyPanel();
+
 /**
  *  动态更改样式
  */
@@ -1106,7 +1157,8 @@ networkTopologyEditor.prototype.initMenus = function() {
  */
 networkTopologyEditor.prototype.replaceStage = function(
     templateId, topologyId, showAlert, topoLevel, parentLevel) {
-  var self = this;
+  let self = this;
+
   $.ajax({
     url: rootPath + 'topologyManage/loadTopologyJSON',
     async: true,
@@ -1123,7 +1175,7 @@ networkTopologyEditor.prototype.replaceStage = function(
       jAlert('服务器异常，请稍后重试..');
     },
     success: function(response) {
-      var err = response.errorInfo;
+      let err = response.errorInfo;
       // 错误处理
       if (err && err != 'ok') {
         if (err == 'logout') {
@@ -1133,12 +1185,13 @@ networkTopologyEditor.prototype.replaceStage = function(
           jAlert(err);
         }
       } else {
-        var topologyJson = response.topologyJson;
+        let topologyJson = response.topologyJson;
         JTopo.replaceStageWithJson(topologyJson);
         if (editor.stage && editor.scene && editor.scene.childs &&
             editor.scene.childs.length > 0) {
           editor.stage.centerAndZoom();
         }
+
         //改变当前层的父层
         $('#parentLevel').val(editor.stage.parentLevel);
         if (showAlert)
@@ -1146,7 +1199,6 @@ networkTopologyEditor.prototype.replaceStage = function(
       }
     },
   });
-
 };
 
 /**
@@ -1164,11 +1216,13 @@ networkTopologyEditor.prototype.init = function(
   }
   this.templateId = templateId;
   this.topologyId = topologyId;
-  //创建JTOP舞台屏幕对象
+
+  // 创建JTOP舞台屏幕对象
   var canvas = document.getElementById('drawCanvas');
   canvas.width = $('#contextBody').width();
   canvas.height = $('#contextBody').height();
-  //加载空白的编辑器
+
+  // 加载空白的编辑器
   if (stageJson == '-1') {
     this.stage = new JTopo.Stage(canvas);
     this.stage.topoLevel = 1;
@@ -1180,9 +1234,12 @@ networkTopologyEditor.prototype.init = function(
     this.stage = JTopo.createStageFromJson(stageJson, canvas);
     this.scene = this.stage.childs[0];
   }
+
   $('#parentLevel').val(this.stage.parentLevel);
-  //拓扑层次切换
-  var options = '';
+
+  // 拓扑层次切换
+  let options = '';
+
   for (var i = 1; i <= this.scene.totalLevel; i++) {
     options += '<option value="' + i + '" ';
     if (i == this.stage.topoLevel) {
@@ -1201,7 +1258,7 @@ networkTopologyEditor.prototype.init = function(
   //背景由样式指定
   //this.scene.background = backImg;
 
-  //用来连线的两个节点
+  // 用来连线的两个节点
   this.tempNodeA = new JTopo.Node('tempA');
   this.tempNodeA.setSize(1, 1);
   this.tempNodeZ = new JTopo.Node('tempZ');
@@ -1210,45 +1267,52 @@ networkTopologyEditor.prototype.init = function(
   this.link = null;
   var self = this;
 
-  //初始化菜单
+  // 初始化菜单
   this.initMenus();
-  //双击编辑文字
+
+  // 双击编辑文字
   this.scene.dbclick(function(e) {
     if (e.target)
       self.currentNode = e.target;
     else
       return;
+
     if (e.target != null && e.target instanceof JTopo.Node) {
-      var nType = e.target.dataType;
-      //非设备节点双击不刷新面板
+      var nType = e.target.nodeType;
+      // 非设备节点双击不刷新面板
       if (nType == 'CL' || nType == 'HO') {
         return;
       }
-      //子网图形，双击进入子网编辑界面，实现分层网络拓扑设计
+      // 子网图形，双击进入子网编辑界面，实现分层网络拓扑设计
       if (nType == 'subnet') {
-        //新建编辑层先判断当前层是否已经保存好
+        // 新建编辑层先判断当前层是否已经保存好
         if (!editor.utils.hasUnSavedNode()) {
           jAlert('在进入新编辑层之前，请保存好当前编辑层内容!');
           return;
         }
+
         if (!self.selectLevel) {
           self.selectLevel = $('#selectLevel');
         }
-        //进入下一层分两种情况：1，下一层没有节点，直接在当前层加一。2，下一层有节点，直接跳转到相应的层
+
+        // 进入下一层分两种情况：
+        // 1，下一层没有节点，直接在当前层加一。
+        // 2，下一层有节点，直接跳转到相应的层
         var subnetNode = editor.utils.getNode(e.target.id);
         if (!subnetNode) return;
         var currLevel = subnetNode.nextLevel;
-        //获取下一层
+        // 获取下一层
         if (currLevel != '0') {//转到下一层
           editor.stage.topoLevel = parseInt(currLevel);
         } else {//层自增
           currLevel = editor.stage.topoLevel = self.selectLevel.find('option').
               size();
-          //设置子网节点的nextLevel属性
+          // 设置子网节点的nextLevel属性
           e.target.nextLevel = currLevel;
           if (!editor.utils.saveNode(e.target.id, currLevel)) return;
         }
-        //设置当前层的父层
+
+        // 设置当前层的父层
         var options = self.selectLevel.find('option');
         var isCreated = false;
         for (var o = 0; o < options.length; o++) {
@@ -1257,6 +1321,7 @@ networkTopologyEditor.prototype.init = function(
             $(options[o]).attr('selected', 'selected');
           }
         }
+
         if (!isCreated) {
           editor.stage.id = '';
           var newOption = '<option selected=\'selected\' value=\'' + currLevel +
@@ -1266,10 +1331,11 @@ networkTopologyEditor.prototype.init = function(
         self.replaceStage(editor.templateId, editor.topologyId, false,
             currLevel, e.target.topoLevel);
       }
-      //按下左键加载属性面板
+
+      // 按下左键加载属性面板
       var deviceTemplateId = e.target.templateId;
-      //防火墙去其连接的路由器模板ID
-      if (e.target.dataType == 'FW') {
+      // 防火墙去其连接的路由器模板ID
+      if (e.target.nodeType == 'FW') {
         var fwLinks = e.target.outLinks.concat(e.target.inLinks);
         fwLinks.forEach(function(l) {
           if (l.nodeA.dataType == 'VR') {
@@ -1281,30 +1347,33 @@ networkTopologyEditor.prototype.init = function(
           return false;
         });
       }
+
       if (self.currnodeId) {
-        if (e.target.nodeId == self.currnodeId && e.target.dataType !=
+        if (e.target.nodeId == self.currnodeId && e.target.nodeType !=
             'ECVR') {//自定义路由器每次双击都要刷新整个panel
           self.refreshPanel(deviceTemplateId, e.target.nodeId,
-              e.target.dataType);
+              e.target.nodeType);
         } else {
           self.clearOldPanels(self.currDataType);
-          self.createNewPanels(e.target.dataType, deviceTemplateId,
+          self.createNewPanels(e.target.nodeType, deviceTemplateId,
               e.target.nodeId, e.target);
         }
       } else {
         self.clearOldPanels(self.currDataType);
-        self.createNewPanels(e.target.dataType, deviceTemplateId,
+        self.createNewPanels(e.target.nodeType, deviceTemplateId,
             e.target.nodeId, e.target);
       }
-      //更新当前选中状态的模型
+
+      // 更新当前选中状态的模型
       self.currnodeId = e.target.nodeId;
-      self.currDataType = e.target.dataType;
-      //双击设置隐藏域的值
+      self.currDataType = e.target.nodeType;
+      // 双击设置隐藏域的值
       $('#nodeModuleIdHidden').val(e.target.nodeId);
       $('#nodeEnvTemplateIdHidden').val(editor.templateId);
     }
   });
-  //数去焦点,设置节点文字
+
+  // 数去焦点,设置节点文字
   self.deviceEditText.blur(function() {
     if (self.currentNode) {
       self.currentNode.text = self.deviceEditText.hide().val();
@@ -1604,22 +1673,23 @@ networkTopologyEditor.prototype.init = function(
           if (self.lineType != 'curveLine') {
             link.arrowsRadius = self.config.linkArrowsRadius;
 
-          link.fontColor = self.config.linkLineJoin;
-          link.strokeColor = self.config.linkStrokeColor;
-          link.lineWidth = self.config.linkDefaultWidth;
+            link.fontColor = self.config.linkLineJoin;
+            link.strokeColor = self.config.linkStrokeColor;
+            link.lineWidth = self.config.linkDefaultWidth;
 
-          this.add(link);
-          self.beginNode = null;
-          this.remove(self.link);
-          self.link = null;
+            this.add(link);
+            self.beginNode = null;
+            this.remove(self.link);
+            self.link = null;
+          } else {
+            self.beginNode = null;
+          }
         } else {
+          if (self.link) {
+            this.remove(self.link);
+          }
           self.beginNode = null;
         }
-      } else {
-        if (self.link) {
-          this.remove(self.link);
-        }
-        self.beginNode = null;
       }
     }
   });

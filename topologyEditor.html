@@ -37,38 +37,72 @@
             <a class="brand hidden-phone" style="float:left;" href="index.html">网络拓扑编辑器</a>
             <div style="float:right; margin:7px 10px 0 0;">
                 <input id="queryText">
-                <img alt="合并" title="合并" width="24" height="24" src="images/topology/merge.fw.png"
-                     onClick="editor.utils.toMerge()" class="buttonStyle"/>
-                <img alt="拆分" title="拆分" width="24" height="24" src="images/topology/split.fw.png"
-                     onClick="editor.utils.toSplit()" class="buttonStyle"/>
-                <img alt="全屏查看" title="全屏查看" width="24" height="24" src="images/topology/fullScreenView.png"
+
+                <img alt="合并" title="合并" width="24" height="24"
+                     src="images/topology/merge.fw.png"
+                     onClick="editor.utils.toMerge()"
+                     class="buttonStyle"/>
+
+                <img alt="拆分" title="拆分" width="24" height="24"
+                     src="images/topology/split.fw.png"
+                     onClick="editor.utils.toSplit()"
+                     class="buttonStyle"/>
+
+                <img alt="全屏查看" title="全屏查看" width="24" height="24"
+                     src="images/topology/fullScreenView.png"
                      onClick="editor.utils.showInFullScreen(editor.stage.canvas,'RequestFullScreen');"
                      class="buttonStyle"/>
-                <img alt="居中显示" title="居中显示" width="24" height="24" src="images/topology/toMiddleWidth.fw.png"
-                     onClick="editor.utils.showInCenter()" class="buttonStyle"/>
-                <img alt="预览" title="预览" width="24" height="24" src="images/topology/preview.fw.png"
-                     onClick="editor.utils.showPic();" class="buttonStyle"/>
-                <img alt="保存" title="保存" width="24" height="24" src="images/topology/save.fw.png"
-                     onClick="editor.saveTopology(true)" class="buttonStyle"/>
-                <img alt="复制" title="复制" width="24" height="24" src="images/topology/copy.fw.png"
-                     onClick="editor.utils.cloneSelectedNodes()" class="buttonStyle"/>
-                <img alt="删除" title="删除" width="24" height="24" src="images/topology/delete.fw.png"
-                     onClick="editor.utils.deleteSelectedNodes();" class="buttonStyle"/>
-                <img alt="清空" title="清空" width="24" height="24" src="images/topology/trash.fw.png"
-                     onClick="editor.utils.clear();" class="buttonStyle"/>
-                <img alt="放大" title="放大" width="24" height="24" src="images/topology/zoomBig.png"
-                     onclick="editor.utils.scalingBig()" class="buttonStyle"/>
-                <img alt="缩小" title="缩小" width="24" height="24" src="images/topology/zoomSmall.png"
-                     onclick="editor.utils.scalingSmall()" class="buttonStyle"/>
-                <img alt="重做" title="重做" width="24" height="24" src="images/topology/next.fw.png"
-                     onClick="editor.utils.reMakeNodeAction()" class="buttonStyle"/>
-            </div>
 
+                <img alt="居中显示" title="居中显示" width="24" height="24"
+                     src="images/topology/toMiddleWidth.fw.png"
+                     onClick="editor.utils.showInCenter()"
+                     class="buttonStyle"/>
+
+                <img alt="预览" title="预览" width="24" height="24"
+                     src="images/topology/preview.fw.png"
+                     onClick="editor.utils.showPic();"
+                     class="buttonStyle"/>
+
+                <img alt="保存" title="保存" width="24" height="24"
+                     src="images/topology/save.fw.png"
+                     onClick="editor.saveTopology(true)"
+                     class="buttonStyle"/>
+
+                <img alt="复制" title="复制" width="24" height="24"
+                     src="images/topology/copy.fw.png"
+                     onClick="editor.utils.cloneSelectedNodes()"
+                     class="buttonStyle"/>
+
+                <img alt="删除" title="删除" width="24" height="24"
+                     src="images/topology/delete.fw.png"
+                     onClick="editor.utils.deleteSelectedNodes();"
+                     class="buttonStyle"/>
+
+                <img alt="清空" title="清空" width="24" height="24"
+                     src="images/topology/trash.fw.png"
+                     onClick="editor.utils.clear();"
+                     class="buttonStyle"/>
+
+                <img alt="放大" title="放大" width="24" height="24"
+                     src="images/topology/zoomBig.png"
+                     onclick="editor.utils.scalingBig()"
+                     class="buttonStyle"/>
+
+                <img alt="缩小" title="缩小" width="24" height="24"
+                     src="images/topology/zoomSmall.png"
+                     onclick="editor.utils.scalingSmall()"
+                     class="buttonStyle"/>
+
+                <img alt="重做" title="重做" width="24" height="24"
+                     src="images/topology/next.fw.png"
+                     onClick="editor.utils.reMakeNodeAction()"
+                     class="buttonStyle"/>
+            </div>
         </div>
     </div>
-
-
 </div>
+
+
 <div id="leftContent" region="west" split="true" title="设备区" class="leftContent">
 
     <div class="easyui-accordion overflowHidden" fit="true" border="false">
@@ -322,16 +356,15 @@
             </table>
 
         </div>
-
-
     </div>
-
 </div>
 
 <div region="center" title='当前正在编辑的拓扑图："demo"
     <img onclick="navLevel(this)" id="next" title="转到下层编辑" style="display:none;float:right;width:13px;height:4px;cursor: pointer" src="themes/icons/down.png"/>
     <select id="selectLevel" style="display:none;float:right;width:160px">
+
     <option value="-1">-选择切换当前编辑层-</option></select>
+
     <img onclick="navLevel(this)" id="pre" title="返回上层编辑" style="display:none;float:right;width:13px;height:4px;cursor: pointer" src="themes/icons/up.png"/>'
      id="contextBody" class="mapContext">
 
@@ -339,26 +372,57 @@
               style="display:none;width: 60px;position: absolute;z-index: 9" id="deviceText"></textarea>
 
     <div id="nodeMainMenu" class="modeRight2" style="z-index: 9">
-        <div class="applicationLayout" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">应用布局</span></div>
-        <div id="changeNodeText" class="nodeText" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">节点文字</span></div>
-        <div class="zoomBig" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">放大(Shift+)</span></div>
-        <div class="zoomSmall" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">缩小(Shift-)</span></div>
-        <div class="modeRightShunShi" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">顺时针旋转(Shift+U)</span></div>
-        <div class="modeRightNiShi" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">逆时针旋转(Shift+I)</span></div>
-        <div class="modeRightDelete" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">删除节点(Delete)</span></div>
-        <div class="modeRightCopy" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">复制节点(Shift+C)</span></div>
-        <div class="modeRightCancel" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">撤销(Shift+Z)</span></div>
-        <div class="modeRightRedo" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">重做(Shift+R)</span></div>
+        <div class="applicationLayout"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">应用布局</span></div>
+
+        <div id="changeNodeText" class="nodeText"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">节点文字</span></div>
+
+        <div class="zoomBig"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">放大(Shift+)</span></div>
+
+        <div class="zoomSmall"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">缩小(Shift-)</span></div>
+
+        <div class="modeRightShunShi"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">顺时针旋转(Shift+U)</span></div>
+
+        <div class="modeRightNiShi"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">逆时针旋转(Shift+I)</span></div>
+
+        <div class="modeRightDelete"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">删除节点(Delete)</span></div>
+
+        <div class="modeRightCopy"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">复制节点(Shift+C)</span></div>
+
+        <div class="modeRightCancel"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">撤销(Shift+Z)</span></div>
+
+        <div class="modeRightRedo"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">重做(Shift+R)</span>
+        </div>
+
     </div>
 
     <div id="lineMenu" class="modeRight2" style="z-index: 9">
@@ -632,14 +696,17 @@
     }
 
     //加载网络拓扑图
-    editor.loadTopology(rootPath + 'json/mydemo.json', 'static/img/bgImage/bright.png', '${templateId}',
+    editor.loadTopology(rootPath + 'json/mydemo003.json', 'static/img/bgImage/bright.png', '${templateId}',
         '${topologyId}', '');
     $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
 
     // 拓扑层跳转
     $('#selectLevel').on('change', function() {
-      if (this.value == -1) return false;
+      if (this.value == -1)
+        return false;
+
       editor.replaceStage(editor.templateId, editor.topologyId, false, this.value);
+
       $('#queryText').combobox('clear');
       $('#queryText').combobox('reload');
     });

@@ -59,8 +59,11 @@
      * @param canvasId 页面定义的显示区域
      */
     function initStage(templateId, topologyJson, canvasId) {
-        if (!canvasId || !templateId || !topologyJson) return;
-        var canvas = document.getElementById(canvasId);
+        if (!canvasId || !templateId || !topologyJson)
+            return;
+
+        let canvas = document.getElementById(canvasId);
+
         if (topologyJson == "-1") {
             this.stage = new JTopo.Stage(canvas);
             this.modeIdIndex = 1;
@@ -71,11 +74,13 @@
             this.stage = JTopo.createStageFromJson(topologyJson, canvas);
             this.scene = this.stage.childs[0];
         }
-        //禁用滚轮缩放
+
+        // 禁用滚轮缩放
         this.stage.wheelZoom = 0.95;
         this.stage.frames = -250;
         this.scene.mode = "drag";
         this.stage.centerAndZoom();
+
         this.scene.childs.forEach(function (n) {
             if (n) {
                 n.dragable = false;
@@ -83,6 +88,7 @@
                 n.selected = false;
             }
         });
+
     };
 
     /**
@@ -123,10 +129,11 @@
     };
 
     $.fn.drawTopologyPic = function (options) {
-        //参数校验
-        if (!options.templateId || !options.url) return;
+        // 参数校验
+        if (!options.templateId || !options.url)
+            return;
         this.html("<canvas id='drawTopoPic'>您的浏览器不支持HTML5!</canvas>");
-        //开始加载
+        // 开始加载
         showTopology(options.templateId, 'drawTopoPic',options.url);
     }
 })(jQuery, window);
