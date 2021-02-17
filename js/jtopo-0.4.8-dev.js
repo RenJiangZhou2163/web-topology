@@ -32,8 +32,7 @@
               var a = this, b = {};
               this.serializedProperties.forEach(function(c) {
                 b[c] = a[c];
-              }),
-                  this.propertiesStack.push(b);
+              }), this.propertiesStack.push(b);
             },
 
             this.restore = function() {
@@ -43,13 +42,12 @@
                     b = this.propertiesStack.pop();
                 this.save();
                 this.serializedProperties.forEach(function(c) {
-                      a[c] = b[c];
-                    },
-                );
+                  a[c] = b[c];
+                });
               }
             },
 
-            // 把当前对象的属性序列化成json数据
+            // 把当前node、link、container 的属性序列化成json数据
             this.toJson = function() {
               var a = this,
                   b = '{',
@@ -76,8 +74,7 @@
                 'string' == typeof f && (f = '"' + f + '"'),
                     b += '"' + d + '":' + f,
                 c > e + 1 && (b += ',');
-              }),
-                  b += '}';
+              }), b += '}';
             };
       }
 
@@ -770,6 +767,7 @@
       }
 
       // 把当前对象的属性序列化成json数据
+      // 作用待定
       function toJson(a) {
         var b = 'backgroundColor,visible,mode,rotate,alpha,scaleX,scaleY,shadow,translateX,translateY,areaSelect,paintAll'.split(
             ','),
@@ -780,7 +778,7 @@
         d += 'frames:' + a.frames, d += ', scenes:[';
 
         for (var e = 0; e < a.childs.length; e++) {
-          var f = a.childs[e];  // f 可以是 node、link、container
+          var f = a.childs[e];
           d += '{',
               d += getProperties(f, b),
               d += ', elements:[';
@@ -1535,6 +1533,7 @@
             // b: stage
             // c: JSON 数据
             this.toJson = function() {
+              console.log("stage 属性 json")
               {
                 var b = this,
                     c = '{"version":"' + JTopo.version + '","deviceNum":"' +
@@ -1553,7 +1552,7 @@
               }),
                   c += '"childs":[',
 
-                  // 遍历scene
+                  // stage.childs 存储scene; 遍历scene
                   // a 是scene
                   this.childs.forEach(function(a) {
                     c += a.toJson();
@@ -1696,9 +1695,11 @@
                     a.restore();
               }
             },
+
             this.repaint = function(a) {
               0 != this.visible && this.paint(a);
             },
+
             this.paintBackgroud = function(a) {
               null != this.background ?
                   a.drawImage(this.background, 0, 0, a.canvas.width,
@@ -1730,7 +1731,7 @@
               return b;
             },
 
-            //
+            // 获取scene上的所有node，存储到列表b
             this.getAllNodes = function() {
               for (var b = [], c = 0; c < this.childs.length; c++) {
                 var d = this.childs[c];
@@ -2253,6 +2254,7 @@
 
             // scene 属性序列化成json数据
             this.toJson = function() {
+              console.log("scene 属性 json")
               {
                 var a = this, b = '{';
                 this.serializedProperties.length;
@@ -2278,6 +2280,7 @@
                   b += '"childs":[';
               var c = this.childs.length;
 
+              // a 可以是 node、link、container
               return this.childs.forEach(function(a, d) {
                 b += a.toJson(),
                 c > d + 1 && (b += ',');
@@ -2416,12 +2419,16 @@
                 bottom: this.y + this.height * this.scaleY,
               };
             },
+
+            //
             this.getDisplaySize = function() {
               return {
                 width: this.width * this.scaleX,
                 height: this.height * this.scaleY,
               };
             },
+
+            //
             this.getPosition = function(a) {
               var b, c = this.getBound();
               return 'Top_Left' == a ? b = {
@@ -2451,9 +2458,9 @@
               } : 'Bottom_Right' == a && (b = {
                 x: c.right,
                 y: c.bottom,
-              }),
-                  b;
+              }), b;
             };
+
       }
 
       function c() {
@@ -3266,7 +3273,7 @@
                 this.dashedPattern = null,
                 this.path = [];
 
-            // TOJSON 参数定义
+            // 序列化参数定义
             var e = 'nodeSrc,nodeDst,lineType,text'.split(',');
             this.serializedProperties = this.serializedProperties.concat(e);
           }
@@ -4639,11 +4646,8 @@
               f;
         }
 
-        var e = (b.context,
-                null)
-            ,
-            f = {}
-            ,
+        var e = (b.context, null),
+            f = {},
             g = b.v;
         return f.run = c,
             f.stop = d,
@@ -4770,8 +4774,7 @@
                     void ((a.x < 0 || a.x > g.stage.canvas.width || a.y >
                         g.stage.canvas.height) && (i.onStop && i.onStop(a),
                         c(a))));
-              }, 50),
-              i;
+              }, 50), i;
         }
 
         function e() {
@@ -4804,31 +4807,21 @@
             var a = f.y + h + Math.sin(k) * j;
             b.setLocation(b.x, a),
                 k += l;
-          }, 100),
-              m;
+          }, 100), m;
         }
 
         function e() {
           window.clearInterval(n);
         }
 
-        var f = c.p1
-            ,
-            g = c.p2
-            ,
-            h = (c.context,
-            f.x + (g.x - f.x) / 2)
-            ,
-            i = f.y + (g.y - f.y) / 2
-            ,
-            j = a.util.getDistance(f, g) / 2
-            ,
-            k = Math.atan2(i, h)
-            ,
-            l = c.speed || .2
-            ,
-            m = {}
-            ,
+        var f = c.p1,
+            g = c.p2,
+            h = (c.context, f.x + (g.x - f.x) / 2),
+            i = f.y + (g.y - f.y) / 2,
+            j = a.util.getDistance(f, g) / 2,
+            k = Math.atan2(i, h),
+            l = c.speed || .2,
+            m = {},
             n = null;
         return m.run = d,
             m.stop = e,
@@ -4840,29 +4833,21 @@
           return h = setInterval(function() {
             if (o)
               return void g.stop();
-            var b = e.x - a.x
-                ,
-                c = e.y - a.y
-                ,
-                h = b * f
-                ,
+            var b = e.x - a.x,
+                c = e.y - a.y,
+                h = b * f,
                 i = c * f;
             a.x += h, a.y += i, .01 > h && .1 > i && d();
-          }, 100),
-              g;
+          }, 100), g;
         }
 
         function d() {
           window.clearInterval(h);
         }
 
-        var e = b.position
-            ,
-            f = (b.context,
-            b.easing || .2)
-            ,
-            g = {}
-            ,
+        var e = b.position,
+            f = (b.context, b.easing || .2),
+            g = {},
             h = null;
         return g.onStop = function(a) {
           return g.onStop = a,
@@ -4886,21 +4871,14 @@
               window.clearInterval(j);
         }
 
-        var e = (b.position, b.context,
-            b.scale || 1)
-            ,
-            f = .06
-            ,
-            g = a.scaleX
-            ,
-            h = a.scaleY
-            ,
-            i = {}
-            ,
+        var e = (b.position, b.context, b.scale || 1),
+            f = .06,
+            g = a.scaleX,
+            h = a.scaleY,
+            i = {},
             j = null;
         return i.onStop = function(a) {
-          return i.onStop = a,
-              i;
+          return i.onStop = a, i;
         }, i.run = c, i.stop = d, i;
       }
 
@@ -4958,8 +4936,7 @@
                               '<=' == i ?
                                   j >= b :
                                   '>=' == i ? b >= j : '!=' == i ? b != j : !1;
-            }),
-            null != e && e.length > 0 && (c = c.concat(e));
+            }), null != e && e.length > 0 && (c = c.concat(e));
           }
         }
         return c;
@@ -4968,8 +4945,7 @@
       function c(a) {
         if (a.find = function(a) {
           return d.call(this, a);
-        }
-            ,
+        }            ,
             e.forEach(function(b) {
               a[b] = function(a) {
                 for (var c = 0; c < this.length; c++)
@@ -5012,8 +4988,7 @@
       }
 
       function d(d) {
-        var e = []
-            ,
+        var e = [],
             f = [];
         this instanceof a.Stage ? (e = this.childs,
             f = f.concat(e)) : this instanceof a.Scene ? e = [this] : f = this,
@@ -5097,49 +5072,49 @@
       }
 
       var j = {};
+
       c.prototype.forward = function(a) {
-        var b = this.p,
-            c = this.w;
+        var b = this.p, c = this.w;
         return b.x = b.x + a * c.x,
             b.y = b.y + a * c.y,
         this.paint && this.paint(b.x, b.y),
             this;
       },
           c.prototype.move = function(a) {
-            var b = this.p
-                ,
-                c = this.w;
+            var b = this.p, c = this.w;
             return b.x = b.x + a * c.x,
                 b.y = b.y + a * c.y,
                 this;
           },
+
           c.prototype.moveTo = function(a, b) {
             return this.p.x = a,
                 this.p.y = b,
                 this;
           },
+
           c.prototype.turn = function(a) {
-            var b = (this.p,
-                    this.w)
-                ,
-                c = Math.cos(a) * b.x - Math.sin(a) * b.y
-                ,
+            var b = (this.p, this.w),
+                c = Math.cos(a) * b.x - Math.sin(a) * b.y,
                 d = Math.sin(a) * b.x + Math.cos(a) * b.y;
             return b.x = c,
                 b.y = d,
                 this;
           },
+
           c.prototype.resize = function(a) {
             var b = this.w;
             return b.x = b.x * a,
                 b.y = b.y * a,
                 this;
           },
+
           c.prototype.save = function() {
             return null == this._stack && (this._stack = []),
                 this._stack.push([this.p, this.w]),
                 this;
           },
+
           c.prototype.restore = function() {
             if (null != this._stack && this._stack.length > 0) {
               var a = this._stack.pop();
@@ -5148,6 +5123,7 @@
             }
             return this;
           },
+
           j.Tortoise = c,
           j.shift = d,
           j.spin = e,
