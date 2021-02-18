@@ -521,6 +521,7 @@ propertyPanel.prototype.deleteAllNodes = function(templateId) {
   if (!templateId) {
     return;
   }
+
   var self = this;
   jConfirm('确定要清空拓扑图吗?', '清空拓扑图', function(ok) {
     if (ok) {
@@ -715,7 +716,7 @@ function networkTopologyEditor(mainControl) {
     containerBorderColor: '0,0,0',              //
     containerBorderRadius: 0,                   //
 
-    //节点旋转幅度
+    // 节点旋转幅度（弧度）
     rotateValue: 0.5,
 
     // alpha: 1,
@@ -1055,7 +1056,7 @@ networkTopologyEditor.prototype.initMenus = function() {
     }
   });
 
-  //节点分组菜单
+  // 节点分组菜单
   self.groupMangeMenu.on('click', function(e) {
     $(this).hide();
     var text = $.trim($(e.target).text());
@@ -2020,62 +2021,72 @@ editor.utils = {
     return this;
   },
 
-  //节点分组合并
+  // [节点分组合并]
   toMerge: function() {
     var selectedNodes = this.getSelectedNodes();
+
     // 不指定布局的时候，容器的布局为自动(容器边界随元素变化）
     var container = new JTopo.Container();
-    container.textPosition = 'Top_Center';
+    container.textPosition = editor.config.containerTextPosition;
     container.fontColor = editor.config.containerFontColor;
     container.borderColor = editor.config.containerBorderColor;
     container.borderRadius = editor.config.containerBorderRadius;
 
-    //节点所属层次
+    // 节点所属层次
     container.topoLevel = editor.stage.topoLevel;
     container.parentLevel = $('#parentLevel').val();
+
     editor.scene.add(container);
     selectedNodes.forEach(function(n) {
       container.add(n);
     });
   },
-  //分组拆除
+
+  // [分组拆除]
   toSplit: function() {
     if (editor.currentNode instanceof JTopo.Container) {
       editor.currentNode.removeAll();
       editor.scene.remove(editor.currentNode);
     }
   },
-  //删除连线
+
+  // [删除连线]
   deleteLine: function() {
     if (editor.currentNode instanceof JTopo.Link) {
       editor.scene.remove(editor.currentNode);
+
       if (editor.currentNode.id)
         editor.deleteNodeById(editor.currentNode.id, 'link');
+
       editor.currentNode = null;
       editor.lineMenu.hide();
     }
   },
-  //删除节点
+
+  // 删除节点
   deleteNode: function(n) {
     editor.scene.remove(n);
     if (n.id)
       editor.deleteNodeById(n.id, n.elementType, n.dataType);
     editor.currentNode = null;
-    //连线重置
+    // 连线重置
     editor.beginNode = null;
+
     if (editor.link)
       editor.scene.remove(editor.link);
+
     editor.link = null;
   },
-  //删除选择的节点
+
+  // [删除选择的节点]
   deleteSelectedNodes: function() {
-    var self = this;
-    var nodes = editor.scene.selectedElements;
+    let self = this;
+    let nodes = editor.scene.selectedElements;
     if (nodes && nodes.length > 0) {
       jConfirm('确定要移除该设备吗?', '移除设备', function(ok) {
         if (ok) {
           editor.showLoadingWindow();
-          for (var i = 0; i < nodes.length; i++) {
+          for (let i = 0; i < nodes.length; i++) {
             self.deleteNode(nodes[i]);
           }
           editor.closeLoadingWindow();
@@ -2083,7 +2094,8 @@ editor.utils = {
       });
     }
   },
-  //放大
+
+  // [放大节点]
   scalingBig: function() {
     if (editor.currentNode instanceof JTopo.Node) {
       editor.currentNode.scaleX += editor.config.nodeScale;
@@ -2092,7 +2104,8 @@ editor.utils = {
       editor.stage.zoomOut(editor.stage.wheelZoom);
     }
   },
-  //缩小
+
+  // [缩小节点]
   scalingSmall: function() {
     if (editor.currentNode instanceof JTopo.Node) {
       editor.currentNode.scaleX -= editor.config.nodeScale;
@@ -2101,31 +2114,36 @@ editor.utils = {
       editor.stage.zoomIn(editor.stage.wheelZoom);
     }
   },
-  //顺时针旋转
+
+  // [顺时针旋转节点]
   rotateAdd: function() {
     if (editor.currentNode instanceof JTopo.Node) {
       editor.currentNode.rotate += editor.config.rotateValue;
     }
   },
-  //逆时针旋转
+
+  // [逆时针旋转节点]
   rotateSub: function() {
     if (editor.currentNode instanceof JTopo.Node) {
       editor.currentNode.rotate -= editor.config.rotateValue;
     }
   },
-  //清空编辑器
+
+  // 清空编辑器
   clear: function() {
-    //删除节点表对应的节点记录
+    // 删除节点表对应的节点记录
     editor.deleteAllNodes(editor.templateId);
   },
-  //拓扑图预览
+
+  // 拓扑图预览
   showPic: function() {
     if (editor.ruleLines && editor.ruleLines.length > 0) {
       this.clearRuleLines();
     }
     editor.stage.saveImageInfo();
   },
-  //复制节点
+
+  // 复制节点
   cloneNode: function(n) {
     if (n instanceof JTopo.Node) {
       var newNode = new JTopo.Node();
@@ -2284,7 +2302,8 @@ editor.utils = {
         editor.currentNode[p] = (editor.currentNode.historyStack[editor.currentNode.currStep])[p];
     }
   },
-  //重做节点操作
+
+  // 重做节点操作
   reMakeNodeAction: function() {
     if (editor.currentNode.currStep >= editor.currentNode.maxHistoryStep ||
         editor.currentNode.currStep >= editor.currentNode.historyStack.length -
@@ -2296,6 +2315,7 @@ editor.utils = {
         editor.currentNode[q] = (editor.currentNode.historyStack[editor.currentNode.currStep])[q];
     }
   },
+
   //保存节点新的状态
   saveNodeNewState: function() {
     //如果历史栈超过最大可记录历史长度，丢弃第一个元素

@@ -48,6 +48,8 @@
             },
 
             // 把当前node、link、container 的属性序列化成json数据
+            // TODO
+            // 产生的问题是 node、link、container 三者的属性关键字是一样的
             this.toJson = function() {
               var a = this,
                   b = '{',
@@ -96,12 +98,14 @@
           CanvasRenderingContext2D.prototype.JTopoDashedLineTo = function(
               a, b, c, d, e) {
             'undefined' == typeof e && (e = 5);
+
             var f = c - a,
                 g = d - b,
                 h = Math.floor(Math.sqrt(f * f + g * g)),
                 i = 0 >= e ? h : h / e,
                 j = g / h * e,
                 k = f / h * e;
+
             this.beginPath();
             for (var l = 0; i > l; l++)
               l % 2 ?
@@ -991,7 +995,7 @@
           window.$foreach = $foreach;
     }(JTopo),
 
-    //
+    // eagleEye
     function(JTopo) {
       function eagleEye(a) {
         return {
@@ -1333,8 +1337,6 @@
                 'topoLevel',
                 'parentLevel',
                 'nextLevel'],
-              this.topoLevel = '1',
-              this.parentLevel = '0',
               this.nextLevel = '0';
         },
         null != c && this.initialize(c);
@@ -1533,7 +1535,7 @@
             // b: stage
             // c: JSON 数据
             this.toJson = function() {
-              console.log("stage 属性 json")
+              console.log('stage 属性 json');
               {
                 var b = this,
                     c = '{"version":"' + JTopo.version + '","deviceNum":"' +
@@ -1546,6 +1548,10 @@
               // a 是 this.serializedProperties 中的元素
               return this.serializedProperties.forEach(function(a) {
                 var d = b[a];
+
+                if (typeof d == 'undefined') {
+                  d = '';
+                }
 
                 'string' == typeof d && (d = '"' + d + '"'),
                     c += '"' + a + '":' + d + ',';
@@ -2254,7 +2260,7 @@
 
             // scene 属性序列化成json数据
             this.toJson = function() {
-              console.log("scene 属性 json")
+              console.log('scene 属性 json');
               {
                 var a = this, b = '{';
                 this.serializedProperties.length;

@@ -39,62 +39,62 @@
                 <input id="queryText">
 
                 <img alt="合并" title="合并" width="24" height="24"
-                     src="images/topology/merge.fw.png"
+                     src="static/img/toolBar/关联.svg"
                      onClick="editor.utils.toMerge()"
                      class="buttonStyle"/>
 
                 <img alt="拆分" title="拆分" width="24" height="24"
-                     src="images/topology/split.fw.png"
+                     src="static/img/toolBar/取消关联.svg"
                      onClick="editor.utils.toSplit()"
                      class="buttonStyle"/>
 
                 <img alt="全屏查看" title="全屏查看" width="24" height="24"
-                     src="images/topology/fullScreenView.png"
+                     src="static/img/toolBar/展开.svg"
                      onClick="editor.utils.showInFullScreen(editor.stage.canvas,'RequestFullScreen');"
                      class="buttonStyle"/>
 
                 <img alt="居中显示" title="居中显示" width="24" height="24"
-                     src="images/topology/toMiddleWidth.fw.png"
+                     src="static/img/toolBar/居中.svg"
                      onClick="editor.utils.showInCenter()"
                      class="buttonStyle"/>
 
                 <img alt="预览" title="预览" width="24" height="24"
-                     src="images/topology/preview.fw.png"
+                     src="static/img/toolBar/预览.svg"
                      onClick="editor.utils.showPic();"
                      class="buttonStyle"/>
 
                 <img alt="保存" title="保存" width="24" height="24"
-                     src="images/topology/save.fw.png"
+                     src="static/img/toolBar/保存.svg"
                      onClick="editor.saveTopology(true)"
                      class="buttonStyle"/>
 
                 <img alt="复制" title="复制" width="24" height="24"
-                     src="images/topology/copy.fw.png"
+                     src="static/img/toolBar/复制.svg"
                      onClick="editor.utils.cloneSelectedNodes()"
                      class="buttonStyle"/>
 
                 <img alt="删除" title="删除" width="24" height="24"
-                     src="images/topology/delete.fw.png"
+                     src="static/img/toolBar/删除.svg"
                      onClick="editor.utils.deleteSelectedNodes();"
                      class="buttonStyle"/>
 
                 <img alt="清空" title="清空" width="24" height="24"
-                     src="images/topology/trash.fw.png"
+                     src="static/img/toolBar/清空.svg"
                      onClick="editor.utils.clear();"
                      class="buttonStyle"/>
 
                 <img alt="放大" title="放大" width="24" height="24"
-                     src="images/topology/zoomBig.png"
+                     src="static/img/toolBar/放大.svg"
                      onclick="editor.utils.scalingBig()"
                      class="buttonStyle"/>
 
                 <img alt="缩小" title="缩小" width="24" height="24"
-                     src="images/topology/zoomSmall.png"
+                     src="static/img/toolBar/缩小.svg"
                      onclick="editor.utils.scalingSmall()"
                      class="buttonStyle"/>
 
                 <img alt="重做" title="重做" width="24" height="24"
-                     src="images/topology/next.fw.png"
+                     src="static/img/toolBar/重做.svg"
                      onClick="editor.utils.reMakeNodeAction()"
                      class="buttonStyle"/>
             </div>
@@ -426,10 +426,15 @@
     </div>
 
     <div id="lineMenu" class="modeRight2" style="z-index: 9">
-        <div class="modeRightEdit" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">添加描述</span></div>
-        <div class="modeRightDelete" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">删除连线</span></div>
+        <div class="modeRightEdit"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">添加描述</span></div>
+
+        <div class="modeRightDelete"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">删除连线</span></div>
     </div>
 
     <div id="nodeTextMenu" class="modeRight2" style="z-index: 9">
@@ -512,24 +517,26 @@
              onMouseOut="this.style.backgroundColor=''">
             <span class="menuSpan" id="showJSON">查看拓扑JSON结构</span>
         </div>
-
     </div>
 
     <div id="groupMangeMenu" class="modeRight2" style="z-index: 9">
-        <div id="newGroup" class="modeRightEdit" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">新建分组</span></div>
+        <div id="newGroup" class="modeRightEdit"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">新建分组</span></div>
+
         <div id="alignGroup"
              class="modeRightEdit"
              onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">对齐方式</span></div>
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">对齐方式</span></div>
     </div>
 
     <div id="groupAlignMenu" class="modeRight2" style="z-index: 9">
         <div class="modeRightMiddle"
              onMouseMove="this.style.backgroundColor='#c5e7f6'"
              onMouseOut="this.style.backgroundColor=''">
-            <span class="menuSpan">水平对齐</span>
-        </div>
+            <span class="menuSpan">水平对齐</span></div>
 
         <div class="modeTopMiddle"
              onMouseMove="this.style.backgroundColor='#c5e7f6'"
@@ -695,7 +702,7 @@
       editor.drag(modes[i], document.getElementById('drawCanvas'), text);
     }
 
-    //加载网络拓扑图
+    // 加载网络拓扑图
     editor.loadTopology(rootPath + 'json/mydemo003.json', 'static/img/bgImage/bright.png', '${templateId}',
         '${topologyId}', '');
     $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
@@ -718,7 +725,7 @@
       valueField: 'nodeId',
       textField: 'nodeName',
       onSelect: function(record) {
-        //查该选中的设备节点
+        // 查该选中的设备节点
         editor.utils.findNodeAndFlash(record.nodeName);
       },
     });
