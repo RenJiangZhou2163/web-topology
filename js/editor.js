@@ -691,18 +691,20 @@ function networkTopologyEditor(mainControl) {
 
         // Link属性
         linkAlpha: 1,                           // 连线透明度,取值范围[0-1]
-        linkStrokeColor: '0,200,255',           // 连线的颜色 可以设置为[lineStrokeColor: 'black',]
+        linkStrokeColor: '0,200,255',               // 连线的颜色 可以设置为[lineStrokeColor: 'black',]
         linkFillColor: '123,165,241',
-        linkShadow: false,                      // 是否显示连线阴影
+        linkShadow: false,                          // 是否显示连线阴影
         linkShadowColor: 'rgba(0,0,0,0.5)',
-        linkFont: '12px Consolas',              // 节点字体
-        linkFontColor: 'black',                 // 连线文字颜色,如"255,255,0"
-        linkArrowsRadius: 0,                      // 线条箭头半径
+        linkFont: '12px Consolas',                  // 节点字体
+        linkFontColor: 'black',                     // 连线文字颜色,如"255,255,0"
+        linkArrowsRadius: 0,                        // 线条箭头半径
         linkDefaultWidth: 1,                        // 连线宽度
         linkOffsetGap: 40,                          // 折线拐角处的长度
         linkDirection: 'horizontal',                // 折线的方向
-        linkBundleGap: 4,                            // 线条之间的间隔
+        linkBundleGap: 4,                           // 线条之间的间隔
         linkLineJoin: 'miter',                      //
+        linkTextPosition: 'Middle_Center',          // 容器文字位置
+        linkDashedPattern: 'dashedPattern',         // 虚线
 
         // Container属性
         containerAlpha: 1,                          // 容器透明度,取值范围[0-1]
@@ -752,45 +754,46 @@ function networkTopologyEditor(mainControl) {
     this.modeIdIndex = 1;
     this.templateId = null;
 
-    // 当前选择的节点对象
+    // [当前选择的节点对象]
     this.currentNode = null;
-    // 当前选择的连线对象
-    this.currentLink = null
-
-    // 节点邮件菜单DOM对象
-    this.nodeMainMenu = $('#nodeMainMenu');
-
-    // 连线邮件菜单DOM
-    this.lineMenu = $('#lineMenu');
 
     // 菜单-全局菜单
     this.mainMenu = $('#mainMenu');
 
-    // 菜单-节点文字修改
+    // 一级菜单-节点右键菜单DOM
+    this.nodeMainMenu = $('#nodeMainMenu');
+    // 二级菜单-[修改节点文字]-节点文字的二级菜单
     this.nodeTextMenu = $('#nodeTextMenu');
-
-    // 菜单-布局管理菜单
+    // 二级菜单-[调整节点文字位置]-节点文字的二级菜单
+    this.nodeTextPosMenu = $('#nodeTextPosMenu');
+    // 二级菜单-[应用布局]-应用布局的二级菜单
     this.layoutMenu = $('#layoutMenu');
 
-    // 菜单-节点文字方向
-    this.nodeTextPosMenu = $('#nodeTextPosMenu');
+    // 一级菜单-连线右键菜单DOM
+    this.lineMenu = $('#lineMenu');
+
+    // 一级菜单-容器右键菜单-实现容器管理
+    this.containerMangeMenu = $('#containerMangeMenu');
 
     // 菜单-设备节点文字编辑框
     this.deviceEditText = $('#deviceText');
 
     // 节点分组菜单
     this.groupMangeMenu = $('#groupMangeMenu');
+
     // 节点对齐菜单
     this.groupAlignMenu = $('#groupAlignMenu');
     this.alignGroup = $('#alignGroup');
-    // 容器管理菜单
-    this.containerMangeMenu = $('#containerMangeMenu');
+
     // 拓扑层次导航
     this.selectLevel;
+
     // 是否显示参考线
     this.showRuleLine = true;
+
     // 标尺线数组
     this.ruleLines = [];
+
     // 调用构造函数
     propertyPanel.call(this, document.getElementById(mainControl));
 }
@@ -874,9 +877,8 @@ networkTopologyEditor.prototype.initMenus = function () {
         self.nodeTextPosMenu.hide();
 
         // 菜单文字
-        var text = $.trim($(e.target).text());
-        var menuX = parseInt(this.style.left) +
-            $(document.getElementById('changeNodeText')).width();
+        let text = $.trim($(e.target).text());
+        let menuX = parseInt(this.style.left) + $(document.getElementById('changeNodeText')).width();
 
         // 边界判断
         if (menuX + self.nodeTextMenu.width() * 2 >= self.stage.width) {
@@ -886,8 +888,7 @@ networkTopologyEditor.prototype.initMenus = function () {
         if ('节点文字' == text) {
             self.layoutMenu.hide();
             self.nodeTextMenu.css({
-                top: parseInt(this.style.top) +
-                    $(document.getElementById('changeNodeText')).height(),
+                top: parseInt(this.style.top) + $(document.getElementById('changeNodeText')).height(),
                 left: menuX,
             }).show();
 
@@ -926,13 +927,13 @@ networkTopologyEditor.prototype.initMenus = function () {
         }
     });
 
-    // 节点右键二级菜单-调整节点文字位置
+    // 菜单事件处理-节点右键二级菜单-调整节点文字位置
     self.nodeTextMenu.on('mouseover', function (e) {
         let text = $.trim($(e.target).text());  //菜单文字
 
         if ('调整节点文字位置' == text) {
             // 处于边界时三级菜单位置调整
-            var menuX = parseInt(this.style.left) + $(document.getElementById('justfyNodeText')).width();
+            let menuX = parseInt(this.style.left) + $(document.getElementById('justfyNodeText')).width();
 
             if (parseInt(this.style.left) < parseInt(document.getElementById('nodeMainMenu').style.left)) {
                 menuX = parseInt(this.style.left) - $(document.getElementById('justfyNodeText')).width();
@@ -1150,33 +1151,30 @@ networkTopologyEditor.prototype.initMenus = function () {
 
         // 菜单文字
         let text = $.trim($(e.target).text());
-
-        let menuX = parseInt(this.style.left) + $(document.getElementById('changeNodeText')).width();
+        let menuX = parseInt(this.style.left) + self.containerMangeMenu.width();
 
         // 边界判断
         if (menuX + self.nodeTextMenu.width() * 2 >= self.stage.width) {
             menuX -= (self.nodeTextMenu.width() + self.containerMangeMenu.width());
-        } else {
-            menuX += self.nodeTextMenu.width()
         }
 
         if ('节点文字' == text) {
             self.nodeTextMenu.css({
-                top: parseInt(this.style.top) +
-                    $(document.getElementById('changeNodeText')).height(),
+                top: parseInt(this.style.top) + $(document.getElementById('changeNodeText')).height(),
                 left: menuX,
             }).show();
 
         } else if ('拆分' == text) {
             self.nodeTextMenu.hide();
         }
+
     });
 
     // 容器管理菜单
     self.layoutMenu.on('click', function (e) {
         editor.currentNode.layout = {};
         $('div[id$=\'Menu\']').hide();
-        var text = $.trim($(e.target).text());
+        let text = $.trim($(e.target).text());
 
         if (text == '取消布局') {
             editor.currentNode.layout.on = false;
@@ -1287,6 +1285,7 @@ networkTopologyEditor.prototype.init = function (
         this.scene.totalLevel = 1;
     } else {
         this.stage = JTopo.createStageFromJson(stageJson, canvas);
+        console.log(stageJson);
         this.scene = this.stage.childs[0];
     }
 
@@ -1494,7 +1493,7 @@ networkTopologyEditor.prototype.init = function (
     });
 
     // 监听鼠标松开事件
-    // 处理右键菜单、左键连线
+    // 处理右键菜单、左键连线 等
     // event.button: 0-左键 1-中键 2-右键
     this.scene.mouseup(function (e) {
         if (e.target && e.target.type == 'tag')
@@ -1504,15 +1503,14 @@ networkTopologyEditor.prototype.init = function (
             self.currentNode = e.target;
 
         if (e.target && e.target instanceof JTopo.Node && e.target.layout &&
-            e.target.layout.on && e.target.layout.type && e.target.layout.type !=
-            'auto')
+            e.target.layout.on && e.target.layout.type && e.target.layout.type != 'auto')
             JTopo.layout.layoutNode(this, e.target, true, e);
 
         // 右键松开，处理右键菜单
         if (e.button == 2) {
             $('div[id$=\'Menu\']').hide();
-            var menuY = e.layerY ? e.layerY : e.offsetY;
-            var menuX = e.layerX ? e.layerX : e.offsetX;
+            let menuY = e.layerY ? e.layerY : e.offsetY;
+            let menuX = e.layerX ? e.layerX : e.offsetX;
 
             // 记录鼠标触发位置在canvas中的相对位置
             self.xInCanvas = menuX;
@@ -1565,9 +1563,23 @@ networkTopologyEditor.prototype.init = function (
                         }).show();
                     }
                 } else if (e.target instanceof JTopo.Container) {  // 容器右键菜单
+                    // self.containerMangeMenu.css({
+                    //     top: e.layerY ? e.layerY : e.offsetY,
+                    //     left: e.layerX ? e.layerX : e.offsetX,
+                    // }).show();
+
+                    // 判断边界出是否能完整显示弹出菜单
+                    if (menuX + self.containerMangeMenu.width() >= self.stage.width) {
+                        menuX -= self.containerMangeMenu.width();
+                    }
+
+                    if (menuY + self.containerMangeMenu.height() >= self.stage.height) {
+                        menuY -= self.containerMangeMenu.height();
+                    }
+
                     self.containerMangeMenu.css({
-                        top: e.layerY ? e.layerY : e.offsetY,
-                        left: e.layerX ? e.layerX : e.offsetX,
+                        top: menuY,
+                        left: menuX,
                     }).show();
                 }
             } else {
@@ -1587,8 +1599,7 @@ networkTopologyEditor.prototype.init = function (
         } else if (e.button == 1) {  // 中键
 
         } else if (e.button == 0) {  // 左键
-            if (e.target != null && e.target instanceof JTopo.Node &&
-                !self.isSelectedMode) {
+            if (e.target != null && e.target instanceof JTopo.Node && !self.isSelectedMode) {
 
                 if (self.beginNode == null) {
                     self.beginNode = e.target;
@@ -1627,15 +1638,15 @@ networkTopologyEditor.prototype.init = function (
                     var endNode = e.target;
 
                     // 判断两个节点是否有循环引用
-                    for (var el = 0; el < endNode.outLinks.length; el++) {
-                        //存在循环引用，线条变红
-                        if (endNode.outLinks[el].nodeZ == self.beginNode) {
-                            if (self.link)
-                                this.remove(self.link);
-                            self.beginNode = null;
-                            return;
-                        }
-                    }
+                    // for (var el = 0; el < endNode.outLinks.length; el++) {
+                    //     //存在循环引用，线条变红
+                    //     if (endNode.outLinks[el].nodeZ == self.beginNode) {
+                    //         if (self.link)
+                    //             this.remove(self.link);
+                    //         self.beginNode = null;
+                    //         return;
+                    //     }
+                    // }
 
                     // 判断节点间是否有重复连线,即起点到终点有两条以上连线
                     // 此处允许两个节点间有多条连线

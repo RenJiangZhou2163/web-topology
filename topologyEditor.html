@@ -176,14 +176,24 @@
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
+                        <div id="Subnet" divType="mode" datatype="子网" draggable="true" title="子网">
+                            <div class="title">&nbsp;</div>
+                            <img name="backGroundImg" src="static/img/nodeImage/subnet.svg" class="nodeStyle"/>
+                            <br><span>子网</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="100%" align="center">
                         <div id="ExtChange" divType="mode" datatype="EC" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_5.png" class="nodeStyle"/>
                             <br><span>交换机</span>
                         </div>
-
                     </td>
                 </tr>
+
                 <tr>
                     <td width="100%" align="center">
                         <div id="Router" divType="mode" datatype="VR" draggable="true" title="使用基于CloudStack提供VR功能">
@@ -194,6 +204,7 @@
 
                     </td>
                 </tr>
+
                 <tr>
                     <td width="100%" align="center">
                         <div id="SelfExtChange" divType="mode" datatype="ECVR" draggable="true"
@@ -205,6 +216,7 @@
 
                     </td>
                 </tr>
+
                 <tr>
                     <td width="100%" align="center">
                         <div id="Firewall" divType="mode" datatype="FW" draggable="true">
@@ -215,6 +227,7 @@
 
                     </td>
                 </tr>
+
                 <tr>
                     <td width="100%" align="center">
                         <div id="f5" divType="mode" datatype="f5" draggable="true">
@@ -629,7 +642,6 @@
 
 <div region="east" split="true" title="操作区" class="history" style="width: 350px">
     <div id="mainControl" class="easyui-accordion overflowHidden" fit="true" border="false">
-
     </div>
 </div>
 
@@ -765,7 +777,7 @@
         }
 
         // 加载网络拓扑图
-        editor.loadTopology(rootPath + 'json/mydemo003.json', 'static/img/bgImage/bright.png', '${templateId}',
+        editor.loadTopology(rootPath + 'json/mydemo004.json', 'static/img/bgImage/bright.png', '${templateId}',
             '${topologyId}', '');
         $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
 
