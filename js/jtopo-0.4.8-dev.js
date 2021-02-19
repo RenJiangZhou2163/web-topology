@@ -2346,7 +2346,7 @@
                     this.zIndex = 0;
 
                 // node、link、container 公有属性定义
-                var a = 'x,y,width,height,visible,rotate,scaleX,scaleY,zIndex'.split(',');
+                var a = 'visible,zIndex'.split(',');
                 this.serializedProperties = this.serializedProperties.concat(a);
 
             },
@@ -2788,7 +2788,7 @@
                     this.outLinks = [];
 
                 // node 的私有属性定义
-                var d = 'nodeId,dataType,nodeImage,text,textPosition,templateId'.split(',');
+                var d = 'x,y,width,height,rotate,scaleX,scaleY,nodeId,nodeType,nodeImage,text,textPosition,templateId'.split(',');
                 this.serializedProperties = this.serializedProperties.concat(d);
 
                 this.maxHistoryStep = 20;
@@ -2796,6 +2796,7 @@
                 this.historyStack = new Array();
             },
                 this.initialize(c),
+
                 this.paint = function (a) {
                     if (this.image) {
                         var b = a.globalAlpha;
@@ -2814,6 +2815,7 @@
                                     this.width, this.height, this.borderRadius),
                             a.fill(),
                             a.closePath();
+
                     this.paintText(a),
                         this.paintBorder(a),
                         this.paintCtrl(a),
@@ -3752,7 +3754,7 @@
                     this.layout = new a.layout.AutoBoundLayout;
 
                 // container 的私有属性兴义
-                var e = 'childNodes,text,textPosition'.split(',');
+                var e = 'x,y,width,height,scaleX,scaleY,childNodes,text,textPosition'.split(',');
                 this.serializedProperties = this.serializedProperties.concat(e);
             },
                 this.initialize(c),
