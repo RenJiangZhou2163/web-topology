@@ -50,9 +50,11 @@ function propertyPanel(mainControlDiv) {
             {'title': '端口转发规则集', 'url': rootPath + 'vmvrManage/showVmvrpfRule'}],
     };
     this.control = $(mainControlDiv);
-    //过渡窗口
+
+    // 过渡窗口
     this.loadingWin = $('#loading');
-    //帮助窗口
+
+    // 帮助窗口
     this.helpWin = $('#help');
 
     //JSON数据压缩
