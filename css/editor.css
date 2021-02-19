@@ -1,221 +1,222 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 * {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .module {
-	position: absolute;
-	cursor: pointer;
-	border: 1px dashed #0F0;
-	visibility: hidden;
-	z-index: 1;
+    position: absolute;
+    cursor: pointer;
+    border: 1px dashed #0F0;
+    visibility: hidden;
+    z-index: 1;
 }
 
 .title {
-	position: absolute;
-	top: 100%;
-	height: 0px;
-	font-size: 12px;
-	width: 100%;
-	text-align: center;
-	visibility: visible;
-	z-index: 1;
+    position: absolute;
+    top: 100%;
+    height: 0px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    visibility: visible;
+    z-index: 1;
 }
 
 .content {
-	visibility: visible;
-	z-index: 1;
-	display: table-cell;
-	vertical-align: middle;
+    visibility: visible;
+    z-index: 1;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .content img {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 /*缩放控制点*/
 .top_left {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: nw-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: nw-resize;
+    z-index: 1;
 }
 
 .top_middle {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: n-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: n-resize;
+    z-index: 1;
 }
 
 .top_right {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: ne-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: ne-resize;
+    z-index: 1;
 }
 
 .middle_left {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: w-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: w-resize;
+    z-index: 1;
 }
 
 .middle_right {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: w-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: w-resize;
+    z-index: 1;
 }
 
 .bottom_left {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: sw-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: sw-resize;
+    z-index: 1;
 }
 
 .bottom_middle {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: s-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: s-resize;
+    z-index: 1;
 }
 
 .bottom_right {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: nw-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: nw-resize;
+    z-index: 1;
 }
 
 .scaling {
-	font-size: 0px;
-	width: 5px !important;
-	height: 5px !important;
-	width: 7px;
-	height: 7px;
-	border: 1px solid #000;
-	background-color: #00F;
-	position: absolute;
-	z-index: 1;
-	background-color: #0F0;
-	cursor: nw-resize;
-	z-index: 1;
+    font-size: 0px;
+    width: 5px !important;
+    height: 5px !important;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #000;
+    background-color: #00F;
+    position: absolute;
+    z-index: 1;
+    background-color: #0F0;
+    cursor: nw-resize;
+    z-index: 1;
 }
 
 .hidden {
-	width: 400px;
-	height: 400px;
-	background-color: #030;
-	z-index: 1;
+    width: 400px;
+    height: 400px;
+    background-color: #030;
+    z-index: 1;
 }
 
 .container {
-	overflow: hidden;
-	text-align: left;
+    overflow: hidden;
+    text-align: left;
 }
 
 .viewarea {
-	width: 100%;
-	height: 100%;
-	text-align: left;
-	margin: 0 auto;
-	cursor: move;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    margin: 0 auto;
+    cursor: move;
 }
 
 .buttonStyle {
-	cursor: pointer;
-	margin-top: 5px;
-	margin-left: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
 .nodeStyle {
-	cursor: pointer;
-	width: 30px;
-	height: 30px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
 }
 
 .modeRight {
-	position: absolute;
-	width: 150px;
-	visibility: hidden;
-	background-color: #FFFFFF;
-	border: 1px solid #b7c8f6;
+    position: absolute;
+    width: 150px;
+    visibility: hidden;
+    background-color: #FFFFFF;
+    border: 1px solid #b7c8f6;
 }
+
 .modeRight3 {
-	position: absolute;
-	width: 30px;
-	visibility: hidden;
-	background-color: #FFFFFF;
-	border: 1px solid #b7c8f6;
+    position: absolute;
+    width: 30px;
+    visibility: hidden;
+    background-color: #FFFFFF;
+    border: 1px solid #b7c8f6;
 }
 
 .modeRight2 {
@@ -228,177 +229,322 @@
 
 /*右键菜单-放大*/
 .zoomBig {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/放大.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/放大.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-缩小*/
 .zoomSmall {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/缩小.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/缩小.svg) 5px no-repeat;
+    background-size: 16px 16px;
+}
+
+/*右键菜单-缩小*/
+.modeRightCancel {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/撤销.svg) 5px no-repeat;
+    background-size: 16px 16px;
+}
+
+/*右键菜单-缩小*/
+.modeRightRedo {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/反撤销.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-清空*/
 .modeRightClear {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/清空.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/清空.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-复制*/
 .modeRightCopy {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/复制.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/复制.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-删除*/
 .modeRightDel {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	background: url(../static/img/toolBar/删除.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    background: url(../static/img/toolBar/删除.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-预览*/
 .modeRightPrint {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/预览.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/预览.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-全屏查看*/
 .modeRightFullScreen {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/展开.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/展开.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-保存*/
 .modeRightSave {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/保存.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/保存.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-显示/隐藏参考线*/
 .modeRightSetRule {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/显示.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/显示.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-查看帮助*/
 .viewHelp {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/帮助.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/帮助.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-查看拓扑JSON结构*/
 .viewJSON {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/json.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/json.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-逆时针旋转*/
 .modeRightNiShi {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/逆时针.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/逆时针.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 /*右键菜单-顺时针旋转*/
 .modeRightShunShi {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/顺时针.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/顺时针.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
+/*右键菜单-节点文字*/
+.nodeText {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/文字.svg) 5px no-repeat;
+    background-size: 16px 16px;
+}
 
+/*右键菜单-修改节点文字*/
+/*右键菜单-添加描述*/
+.modeRightEdit {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/文字编辑.svg) 5px no-repeat;
+    background-size: 16px 16px;
+}
 
+/*右键菜单-调整节点文字位置*/
+.nodeRightEdit {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/changePosition.png) 5px no-repeat;
+    background-size: 16px 16px;
+}
+
+/*右键菜单-调整节点文字位置-顶部居左*/
+.theTopLeft {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theTopLeft.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-顶部居中*/
+.theTopCenter {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theTopCenter.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-顶部居右*/
+.theTopRight {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theTopRight.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-中间居左*/
+.theMiddleLeft {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theMiddleLeft.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-居中*/
+.center {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/center.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-中间居右*/
+.theMiddleRight {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theMiddleRight.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-底部居右*/
+.theBottomLeft {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theBottomLeft.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-底部居右*/
+.theBottomCenter {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theBottomCenter.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-调整节点文字位置-底部居右*/
+.theBottomRight {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/theBottomRight.png) 3px no-repeat;
+    background-size: 24px 24px;
+}
+
+/*右键菜单-删除节点*/
+/*右键菜单-删除连线*/
+.modeRightDelete {
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/topology/delete.fw.png) 3px no-repeat;
+}
 
 .modeRightCut {
-	height: 30px;
-	line-height: 30px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/cut.png) left no-repeat;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/cut.png) left no-repeat;
 }
-
-
-
 
 
 .modeRightPro {
-	height: 30px;
-	line-height: 30px;
-	text-align: left;
-	background: url(../images/prop.png) 3px no-repeat;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    background: url(../images/prop.png) 3px no-repeat;
 }
 
 .modeRightTop {
-	height: 6px;
-	font-size: 0px;
+    height: 6px;
+    font-size: 0px;
 }
 
 .modeRightButtom {
-	height: 6px;
-	font-size: 0px;
+    height: 6px;
+    font-size: 0px;
 }
 
 /*
 .modeRightPixel{height:24px;line-height:24px; text-align:left; border-bottom:1px dotted #cccccc;
 background:url(../images/modeRightCopy.gif) 3px no-repeat;}
  */
- .applicationLayout {
+.applicationLayout {
     height: 24px;
     line-height: 24px;
     text-align: left;
     border-bottom: 1px dotted #cccccc;
     background: url(../images/topology/applicationLayout.png) 5px no-repeat;
 }
- 
+
 .cancelTheLayout {
     height: 24px;
     line-height: 24px;
@@ -430,410 +576,294 @@ background:url(../images/modeRightCopy.gif) 3px no-repeat;}
     border-bottom: 1px dotted #cccccc;
     background: url(../images/topology/circularLayout.png) 3px no-repeat;
 }
- 
+
 .modeRightLeft {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/toLeft.png) 3px no-repeat;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/toLeft.png) 3px no-repeat;
 }
 
 /*右键菜单-居中显示*/
 .modeRightCenter {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../static/img/toolBar/居中.svg) 5px no-repeat;
-	background-size:16px 16px;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../static/img/toolBar/居中.svg) 5px no-repeat;
+    background-size: 16px 16px;
 }
 
 .modeRightRight {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/toRight.png) 3px no-repeat;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/toRight.png) 3px no-repeat;
 }
 
 .modeRightHead {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/toTop.png) 3px no-repeat;
-}
-.modeRightCancel {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/topology/back.fw.png) 3px no-repeat;
-}
-
-
-.modeRightRedo {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/topology/next.fw.png) 3px no-repeat;
-}
-
-.modeRightEdit {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/topology/edit.png) 3px no-repeat;
-}
-
-.nodeRightEdit {
     height: 24px;
     line-height: 24px;
     text-align: left;
     border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/changePosition.png) 3px no-repeat;
+    background: url(../images/toTop.png) 3px no-repeat;
 }
 
-.nodeText {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/nodeText.png) 3px no-repeat;
-}
 
-.theTopLeft {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theTopLeft.png) 3px no-repeat;
-}
 
-.theTopCenter {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theTopCenter.png) 3px no-repeat;
-}
-
-.theTopRight {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theTopRight.png) 3px no-repeat;
-}
-
-.theMiddleLeft {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theMiddleLeft.png) 3px no-repeat;
-}
-
-.center {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/center.png) 3px no-repeat;
-}
-
-.theMiddleRight {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theMiddleRight.png) 3px no-repeat;
-}
-
-.theBottomLeft {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theBottomLeft.png) 3px no-repeat;
-}
-
-.theBottomCenter {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theBottomCenter.png) 3px no-repeat;
-}
-
-.theBottomRight {
-    height: 24px;
-    line-height: 24px;
-    text-align: left;
-    border-bottom: 1px dotted #cccccc;
-    background: url(../images/topology/theBottomRight.png) 3px no-repeat;
-}
 
 .modeRightMiddle {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/toMiddleHeight.png) 3px no-repeat;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/toMiddleHeight.png) 3px no-repeat;
 }
+
 .modeTopMiddle {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/toTop.png) 3px no-repeat;
-}
-.modeRightDelete {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
-	background: url(../images/topology/delete.fw.png) 3px no-repeat;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
+    background: url(../images/toTop.png) 3px no-repeat;
 }
 
 
 
 
 .modeRightSettings {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	border-bottom: 1px dotted #cccccc;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    border-bottom: 1px dotted #cccccc;
 }
-
 
 
 .modeRightFoot {
-	height: 24px;
-	line-height: 24px;
-	text-align: left;
-	background: url(../images/toBottom.png) 3px no-repeat;
+    height: 24px;
+    line-height: 24px;
+    text-align: left;
+    background: url(../images/toBottom.png) 3px no-repeat;
 }
 
 .auxiliaryArea {
-	height: 142px;
-	position: relative;
-	background-color: #FFFFFF
+    height: 142px;
+    position: relative;
+    background-color: #FFFFFF
 }
 
 #smallMap {
-	position: absolute;
-	width: 100px;
-	height: 60px;
-	overflow: auto;
-	border: 1px #99bbe8 solid;
-	background-color: #ffffff;
-	float: left;
-	position:fixed;
-	margin-right: 5px;
-	margin-top: 3px;
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    overflow: auto;
+    border: 1px #99bbe8 solid;
+    background-color: #ffffff;
+    float: left;
+    position: fixed;
+    margin-right: 5px;
+    margin-top: 3px;
 }
 
 #mainControl {
-	/*position:absolute;width:100%;height:100%; overflow:hidden; border:1px #99bbe8 solid;background-color:#c7dbfc;float:left; margin-right:5px; margin-top:3px;*/
-	
+    /*position:absolute;width:100%;height:100%; overflow:hidden; border:1px #99bbe8 solid;background-color:#c7dbfc;float:left; margin-right:5px; margin-top:3px;*/
+
 }
 
 .show {
-	width: 200px;
-	height: 100px;
-	overflow: auto;
-	border: 1px #99bbe8 solid;
-	background-color: #ffffff;
-	float: right;
-	margin-top: 3px;
+    width: 200px;
+    height: 100px;
+    overflow: auto;
+    border: 1px #99bbe8 solid;
+    background-color: #ffffff;
+    float: right;
+    margin-top: 3px;
 }
 
 .showItem {
-	position: relative;
-	text-align: center;
-	border-bottom: 1px dotted #cccccc;
-	width: 100%;
-	height: 20px;
+    position: relative;
+    text-align: center;
+    border-bottom: 1px dotted #cccccc;
+    width: 100%;
+    height: 20px;
 }
 
 .message {
-	position: absolute;
-	top: 0px;
-	left: 60px;
+    position: absolute;
+    top: 0px;
+    left: 60px;
 }
 
 .inputComm {
-	width: 100%;
-	height: 18px;
-	border: 1px solid #ccc;
+    width: 100%;
+    height: 18px;
+    border: 1px solid #ccc;
 }
 
 .contextArea {
-	border: 1px solid #ccc;
-	height: 60px;
-	width: 80px;
+    border: 1px solid #ccc;
+    height: 60px;
+    width: 80px;
 }
 
 .inputClick {
-	width: 80%;
-	height: 18px;
-	border: 2px solid #6e95c0;
+    width: 80%;
+    height: 18px;
+    border: 2px solid #6e95c0;
 }
 
 #topCross {
-	visibility: hidden;
-	width: 100%;
-	height: 1px;
-	font-size: 0px;
-	border-top: 1px dashed #ff0000;
-	position: absolute;
+    visibility: hidden;
+    width: 100%;
+    height: 1px;
+    font-size: 0px;
+    border-top: 1px dashed #ff0000;
+    position: absolute;
 }
 
 #leftCross {
-	visibility: hidden;
-	width: 1px;
-	height: 100%;
-	font-size: 0px;
-	border-left: 1px dashed #ff0000;
-	position: absolute;
-	left: 100px;
+    visibility: hidden;
+    width: 1px;
+    height: 100%;
+    font-size: 0px;
+    border-left: 1px dashed #ff0000;
+    position: absolute;
+    left: 100px;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	font-size: 12px;
-	font-weight: normal;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .control {
-	position: relative;
-	width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .hclass {
-	position: relative;
-	width: 65px;
-	z-index: 1;
-	top: 2px;
-	height: 25px;
-	line-height: 22px;
-	margin-bottom: 1px;
-	border: solid #ccc;
-	border-width: 1px 0 1px 1px;
-	text-align: left;
-	font-family: "宋体";
-	background-image: url("../images/bg.gif");
-	cursor: pointer;
-	float: left;
+    position: relative;
+    width: 65px;
+    z-index: 1;
+    top: 2px;
+    height: 25px;
+    line-height: 22px;
+    margin-bottom: 1px;
+    border: solid #ccc;
+    border-width: 1px 0 1px 1px;
+    text-align: left;
+    font-family: "宋体";
+    background-image: url("../images/bg.gif");
+    cursor: pointer;
+    float: left;
 }
 
 .hclassup {
-	position: relative;
-	width: 150px;
-	z-index: 1;
-	top: 2px !important;
-	top: 5px;
-	height: 18px !important;
-	height: 22px;
-	padding-top: 4px;
-	margin-bottom: -1px;
-	border: solid #ccc;
-	border-width: 1px 0 1px 1px;
-	text-align: center;
-	font-family: "宋体";
-	z-index: 3;
-	color: #c00;
-	background: #e0ecff;
+    position: relative;
+    width: 150px;
+    z-index: 1;
+    top: 2px !important;
+    top: 5px;
+    height: 18px !important;
+    height: 22px;
+    padding-top: 4px;
+    margin-bottom: -1px;
+    border: solid #ccc;
+    border-width: 1px 0 1px 1px;
+    text-align: center;
+    font-family: "宋体";
+    z-index: 3;
+    color: #c00;
+    background: #e0ecff;
 }
 
 .htab {
-	display: none;
-	position: absolute;
-	left: 119px;
-	top: 0;
-	z-index: 2;
-	width: 100%;
-	padding: 5px;
-	border: solid 1px #ccc;
-	color: #666;
+    display: none;
+    position: absolute;
+    left: 119px;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 5px;
+    border: solid 1px #ccc;
+    color: #666;
 }
 
 .htabup {
-	display: block;
-	position: absolute;
-	left: 0px;
-	top: 22px;
-	z-index: 2;
-	width: 100%;
-	padding: 5px;
-	border: solid 1px #ccc;
-	color: #666;
-	background-color: #e0ecff;
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 22px;
+    z-index: 2;
+    width: 100%;
+    padding: 5px;
+    border: solid 1px #ccc;
+    color: #666;
+    background-color: #e0ecff;
 }
 
 .titleTool {
-	height: 64px;
-	background-color: #FFFFFF;
+    height: 64px;
+    background-color: #FFFFFF;
 }
 
 .bodySelectNone {
-	-moz-user-select: none;
+    -moz-user-select: none;
 }
 
 .leftContent {
-	width: 150px;
-	position: relative;
-	background-color: #d8e4fe;
-	overflow: hidden;
+    width: 150px;
+    position: relative;
+    background-color: #d8e4fe;
+    overflow: hidden;
 }
 
 .overflowHidden {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .overflowHidden2 {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .flowImag {
-	overflow: hidden;
-	background-color: #c7dbfc;
+    overflow: hidden;
+    background-color: #c7dbfc;
 }
 
 /*背景*/
 .mapContext {
-	overflow: auto;
-	position: relative;
-	/*background: #fff url(/web-topology/static/img/bgImage/bright.png);*/
+    overflow: auto;
+    position: relative;
+    /*background: #fff url(/web-topology/static/img/bgImage/bright.png);*/
 }
 
 .history {
-	width: 280px;
-	position: relative
+    width: 280px;
+    position: relative
 }
 
 .historyMessage {
-	position: absolute;
-	top: 0px;
-	left: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 #smallMap {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .menuSpan {
-	margin-left: 28px;
+    margin-left: 28px;
 }
 
 .moveBaseMode {
-	position: absolute;
-	visibility: hidden;
-	filter: alpha(opacity = 30);
-	opacity: 0.3;
+    position: absolute;
+    visibility: hidden;
+    filter: alpha(opacity=30);
+    opacity: 0.3;
 }

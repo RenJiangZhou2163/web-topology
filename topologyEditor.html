@@ -93,8 +93,13 @@
                      onclick="editor.utils.scalingSmall()"
                      class="buttonStyle"/>
 
+                <img alt="撤销" title="撤销" width="24" height="24"
+                     src="static/img/toolBar/撤销.svg"
+                     onClick="editor.utils.cancleNodeAction()"
+                     class="buttonStyle"/>
+
                 <img alt="重做" title="重做" width="24" height="24"
-                     src="static/img/toolBar/重做.svg"
+                     src="static/img/toolBar/反撤销.svg"
                      onClick="editor.utils.reMakeNodeAction()"
                      class="buttonStyle"/>
             </div>
@@ -360,7 +365,9 @@
 </div>
 
 <div region="center" title='当前正在编辑的拓扑图："demo"
-    <img onclick="navLevel(this)" id="next" title="转到下层编辑" style="display:none;float:right;width:13px;height:4px;cursor: pointer" src="themes/icons/down.png"/>
+    <img onclick="navLevel(this)" id="next" title="转到下层编辑"
+    style="display:none;float:right;width:13px;height:4px;cursor: pointer"
+    src="themes/icons/down.png"/>
     <select id="selectLevel" style="display:none;float:right;width:160px">
 
     <option value="-1">-选择切换当前编辑层-</option></select>
@@ -377,7 +384,8 @@
              onMouseOut="this.style.backgroundColor=''">
             <span class="menuSpan">应用布局</span></div>
 
-        <div id="changeNodeText" class="nodeText"
+        <div id="changeNodeText"
+             class="nodeText"
              onMouseMove="this.style.backgroundColor='#c5e7f6'"
              onMouseOut="this.style.backgroundColor=''">
             <span class="menuSpan">节点文字</span></div>
@@ -425,6 +433,7 @@
 
     </div>
 
+    <!--选中某条链路时的右键菜单-->
     <div id="lineMenu" class="modeRight2" style="z-index: 9">
         <div class="modeRightEdit"
              onMouseMove="this.style.backgroundColor='#c5e7f6'"
@@ -437,32 +446,66 @@
             <span class="menuSpan">删除连线</span></div>
     </div>
 
+    <!--选中某个节点时的右键菜单之 节点文字-->
     <div id="nodeTextMenu" class="modeRight2" style="z-index: 9">
-        <div class="modeRightEdit" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">修改节点文字</span></div>
-        <div id="justfyNodeText" class="nodeRightEdit" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">调整节点文字位置</span></div>
+        <div class="modeRightEdit"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">修改节点文字</span></div>
+
+        <div id="justfyNodeText"
+             class="nodeRightEdit"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">调整节点文字位置</span></div>
     </div>
 
+    <!--选中某个节点时的右键菜单之 节点文字(调整节点文字位置)-->
     <div id="nodeTextPosMenu" class="modeRight2" style="z-index: 9">
-        <div class="theTopLeft" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">顶部居左</span></div>
-        <div class="theTopCenter" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">顶部居中</span></div>
-        <div class="theTopRight" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">顶部居右</span></div>
-        <div class="theMiddleLeft" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">中间居左</span></div>
-        <div class="center" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">居中</span></div>
-        <div class="theMiddleRight" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">中间居右</span></div>
-        <div class="theBottomLeft" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">底部居左</span></div>
-        <div class="theBottomCenter" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">底部居中</span></div>
-        <div class="theBottomRight" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">底部居右</span></div>
+        <div class="theTopLeft"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">顶部居左</span></div>
+
+        <div class="theTopCenter"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">顶部居中</span></div>
+
+        <div class="theTopRight"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">顶部居右</span></div>
+
+        <div class="theMiddleLeft"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">中间居左</span></div>
+
+        <div class="center"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">居中</span></div>
+
+        <div class="theMiddleRight"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">中间居右</span></div>
+
+        <div class="theBottomLeft"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">底部居左</span></div>
+
+        <div class="theBottomCenter"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">底部居中</span></div>
+
+        <div class="theBottomRight"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">底部居右</span></div>
     </div>
 
     <div id="mainMenu" class="modeRight2" style="z-index: 9">
@@ -546,19 +589,38 @@
     </div>
 
     <div id="containerMangeMenu" class="modeRight2" style="z-index: 9">
-        <div class="modeRightDel" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">拆分</span></div>
+        <div class="modeRightDel"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">拆分</span></div>
+
+        <div id="changeNodeText2"
+             class="nodeText"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">节点文字</span></div>
     </div>
 
     <div id="layoutMenu" class="modeRight2" style="z-index: 9">
-        <div class="cancelTheLayout" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">取消布局</span></div>
-        <div class="packetLayout" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">分组布局</span></div>
-        <div class="theTreeLayout" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">树形布局</span></div>
-        <div class="circularLayout" onMouseMove="this.style.backgroundColor='#c5e7f6'"
-             onMouseOut="this.style.backgroundColor=''"><span class="menuSpan">圆形布局</span></div>
+        <div class="cancelTheLayout"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">取消布局</span></div>
+
+        <div class="packetLayout"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">分组布局</span></div>
+
+        <div class="theTreeLayout"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">树形布局</span></div>
+
+        <div class="circularLayout"
+             onMouseMove="this.style.backgroundColor='#c5e7f6'"
+             onMouseOut="this.style.backgroundColor=''">
+            <span class="menuSpan">圆形布局</span></div>
     </div>
     <canvas id="drawCanvas" class="mapContext">
         您的浏览器不支持HTML5!
@@ -595,142 +657,142 @@
 <script src="js/jquery.ipinput.js" type="text/javascript"></script>
 <script src="js/topologyProperties.js" type="text/javascript"></script>
 <script type="text/javascript">
-  function navLevel(ele) {
-    var selectEle = $('#selectLevel');
-    var self = $(ele);
-    var value = selectEle.find('option:selected').eq(0).val();
-    var options = selectEle.find('option');
-    var maxLevel = options.size() - 1;
-    if (self.attr('id') == 'pre') {
-      //到第一层
-      if (value == 1)
-        return;
-      else
-        editor.replaceStage(editor.templateId, editor.topologyId, false, editor.stage.parentLevel);
-      for (var o = 0; o < options.length; o++) {
-        if (editor.stage.parentLevel == options[o].value) {
-          $(options[o]).attr('selected', 'selected');
+    function navLevel(ele) {
+        var selectEle = $('#selectLevel');
+        var self = $(ele);
+        var value = selectEle.find('option:selected').eq(0).val();
+        var options = selectEle.find('option');
+        var maxLevel = options.size() - 1;
+        if (self.attr('id') == 'pre') {
+            //到第一层
+            if (value == 1)
+                return;
+            else
+                editor.replaceStage(editor.templateId, editor.topologyId, false, editor.stage.parentLevel);
+            for (var o = 0; o < options.length; o++) {
+                if (editor.stage.parentLevel == options[o].value) {
+                    $(options[o]).attr('selected', 'selected');
+                }
+            }
         }
-      }
-    }
-    if (self.attr('id') == 'next') {
-      //到第一层
-      if (value == maxLevel)
-        return;
-      else
-        editor.replaceStage(editor.templateId, editor.topologyId, false, parseInt(value) + 1);
-      for (var o = 0; o < options.length; o++) {
-        if (parseInt(value) + 1 == options[o].value) {
-          $(options[o]).attr('selected', 'selected');
+        if (self.attr('id') == 'next') {
+            //到第一层
+            if (value == maxLevel)
+                return;
+            else
+                editor.replaceStage(editor.templateId, editor.topologyId, false, parseInt(value) + 1);
+            for (var o = 0; o < options.length; o++) {
+                if (parseInt(value) + 1 == options[o].value) {
+                    $(options[o]).attr('selected', 'selected');
+                }
+            }
         }
-      }
-    }
-  }
-
-  //节点名字加载器
-  var nodeNamesloader = function(param, success, error) {
-    //获取输入的值
-    var q = param.q || '';
-    //此处q的length代表输入多少个字符后开始查询
-    if (q.length <= 0) return false;
-    var nodes = editor.stage.find('node[elementType="node"]');
-    var items = $.map(nodes, function(item, index) {
-      if (item.text && item.text.indexOf(q) != -1) {
-        return {
-          'nodeId': index,
-          'nodeName': item.text,
-        };
-      }
-    });
-    success(items);
-  };
-  jQuery(document).ready(function() {
-    //jAlert($.i18n.prop('editor.ui.selectLanguage'));
-    $(document).on('contextmenu', function(e) {
-      return false;
-    });
-
-    $('#simpleLine').click(function() {
-      $(this).css('background-color', 'darkgray');
-      $('#foldLineH').css('background-color', 'white');
-      $('#foldLineV').css('background-color', 'white');
-      $('#flexLineH').css('background-color', 'white');
-      $('#flexLineV').css('background-color', 'white');
-    });
-    $('#foldLineH').click(function() {
-      $(this).css('background-color', 'darkgray');
-      $('#simpleLine').css('background-color', 'white');
-      $('#foldLineV').css('background-color', 'white');
-      $('#flexLineH').css('background-color', 'white');
-      $('#flexLineV').css('background-color', 'white');
-    });
-    $('#foldLineV').click(function() {
-      $(this).css('background-color', 'darkgray');
-      $('#simpleLine').css('background-color', 'white');
-      $('#foldLineH').css('background-color', 'white');
-      $('#flexLineH').css('background-color', 'white');
-      $('#flexLineV').css('background-color', 'white');
-    });
-    $('#flexLineH').click(function() {
-      $(this).css('background-color', 'darkgray');
-      $('#simpleLine').css('background-color', 'white');
-      $('#foldLineH').css('background-color', 'white');
-      $('#foldLineV').css('background-color', 'white');
-      $('#flexLineV').css('background-color', 'white');
-    });
-    $('#flexLineV').click(function() {
-      $(this).css('background-color', 'darkgray');
-      $('#simpleLine').css('background-color', 'white');
-      $('#foldLineH').css('background-color', 'white');
-      $('#foldLineV').css('background-color', 'white');
-      $('#flexLineH').css('background-color', 'white');
-    });
-
-    $('#mainControl').accordion({
-      onSelect: function(title) {
-        //editor.selectPanel(title,editor.currentNode.templateId,editor.currDeviceId,editor.currDataType);
-      },
-    });
-
-    var modes = jQuery('[divType=\'mode\']');
-    var modeLength = modes.length;
-
-    for (var i = 0; i < modeLength; i++) {
-      modes[i].gtype = modes[i].getAttribute('gtype');
-      modes[i].datatype = modes[i].getAttribute('datatype');
-      var text = $(modes[i]).find('span').eq(0).text();
-      editor.drag(modes[i], document.getElementById('drawCanvas'), text);
     }
 
-    // 加载网络拓扑图
-    editor.loadTopology(rootPath + 'json/mydemo003.json', 'static/img/bgImage/bright.png', '${templateId}',
-        '${topologyId}', '');
-    $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
+    //节点名字加载器
+    var nodeNamesloader = function (param, success, error) {
+        //获取输入的值
+        var q = param.q || '';
+        //此处q的length代表输入多少个字符后开始查询
+        if (q.length <= 0) return false;
+        var nodes = editor.stage.find('node[elementType="node"]');
+        var items = $.map(nodes, function (item, index) {
+            if (item.text && item.text.indexOf(q) != -1) {
+                return {
+                    'nodeId': index,
+                    'nodeName': item.text,
+                };
+            }
+        });
+        success(items);
+    };
+    jQuery(document).ready(function () {
+        //jAlert($.i18n.prop('editor.ui.selectLanguage'));
+        $(document).on('contextmenu', function (e) {
+            return false;
+        });
 
-    // 拓扑层跳转
-    $('#selectLevel').on('change', function() {
-      if (this.value == -1)
-        return false;
+        $('#simpleLine').click(function () {
+            $(this).css('background-color', 'darkgray');
+            $('#foldLineH').css('background-color', 'white');
+            $('#foldLineV').css('background-color', 'white');
+            $('#flexLineH').css('background-color', 'white');
+            $('#flexLineV').css('background-color', 'white');
+        });
+        $('#foldLineH').click(function () {
+            $(this).css('background-color', 'darkgray');
+            $('#simpleLine').css('background-color', 'white');
+            $('#foldLineV').css('background-color', 'white');
+            $('#flexLineH').css('background-color', 'white');
+            $('#flexLineV').css('background-color', 'white');
+        });
+        $('#foldLineV').click(function () {
+            $(this).css('background-color', 'darkgray');
+            $('#simpleLine').css('background-color', 'white');
+            $('#foldLineH').css('background-color', 'white');
+            $('#flexLineH').css('background-color', 'white');
+            $('#flexLineV').css('background-color', 'white');
+        });
+        $('#flexLineH').click(function () {
+            $(this).css('background-color', 'darkgray');
+            $('#simpleLine').css('background-color', 'white');
+            $('#foldLineH').css('background-color', 'white');
+            $('#foldLineV').css('background-color', 'white');
+            $('#flexLineV').css('background-color', 'white');
+        });
+        $('#flexLineV').click(function () {
+            $(this).css('background-color', 'darkgray');
+            $('#simpleLine').css('background-color', 'white');
+            $('#foldLineH').css('background-color', 'white');
+            $('#foldLineV').css('background-color', 'white');
+            $('#flexLineH').css('background-color', 'white');
+        });
 
-      editor.replaceStage(editor.templateId, editor.topologyId, false, this.value);
+        $('#mainControl').accordion({
+            onSelect: function (title) {
+                //editor.selectPanel(title,editor.currentNode.templateId,editor.currDeviceId,editor.currDataType);
+            },
+        });
 
-      $('#queryText').combobox('clear');
-      $('#queryText').combobox('reload');
+        var modes = jQuery('[divType=\'mode\']');
+        var modeLength = modes.length;
+
+        for (var i = 0; i < modeLength; i++) {
+            modes[i].gtype = modes[i].getAttribute('gtype');
+            modes[i].datatype = modes[i].getAttribute('datatype');
+            var text = $(modes[i]).find('span').eq(0).text();
+            editor.drag(modes[i], document.getElementById('drawCanvas'), text);
+        }
+
+        // 加载网络拓扑图
+        editor.loadTopology(rootPath + 'json/mydemo003.json', 'static/img/bgImage/bright.png', '${templateId}',
+            '${topologyId}', '');
+        $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
+
+        // 拓扑层跳转
+        $('#selectLevel').on('change', function () {
+            if (this.value == -1)
+                return false;
+
+            editor.replaceStage(editor.templateId, editor.topologyId, false, this.value);
+
+            $('#queryText').combobox('clear');
+            $('#queryText').combobox('reload');
+        });
+
+        // 搜索设备节点候选框
+        $('#queryText').combobox({
+            loader: nodeNamesloader,
+            mode: 'remote',
+            valueField: 'nodeId',
+            textField: 'nodeName',
+            onSelect: function (record) {
+                // 查该选中的设备节点
+                editor.utils.findNodeAndFlash(record.nodeName);
+            },
+        });
+        $('input[class=\'combo-text validatebox-text\']').attr('placeholder', '输入节点名称搜素...');
     });
-
-    // 搜索设备节点候选框
-    $('#queryText').combobox({
-      loader: nodeNamesloader,
-      mode: 'remote',
-      valueField: 'nodeId',
-      textField: 'nodeName',
-      onSelect: function(record) {
-        // 查该选中的设备节点
-        editor.utils.findNodeAndFlash(record.nodeName);
-      },
-    });
-    $('input[class=\'combo-text validatebox-text\']').attr('placeholder', '输入节点名称搜素...');
-  });
 
 </script>
 </html>

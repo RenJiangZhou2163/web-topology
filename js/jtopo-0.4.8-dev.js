@@ -2228,8 +2228,7 @@
 
             // 缩放并居中显示所有元素
             this.centerAndZoom = function(a, b, c) {
-              if (this.translateToCenter(c),
-              null == a || null == b) {
+              if (this.translateToCenter(c), null == a || null == b) {
                 var d = this.getElementsBound(),
                     e = d.right - d.left,
                     f = d.bottom - d.top,
@@ -3886,8 +3885,10 @@
               null != this.textOffsetY && (d.y += this.textOffsetY),
                   d;
             },
+
             this.paintMouseover = function() {
             },
+
             this.paintSelected = function(a) {
               a.shadowBlur = 10,
                   a.shadowColor = 'rgba(0,0,0,1)',
