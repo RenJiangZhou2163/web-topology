@@ -113,7 +113,6 @@
     <div class="easyui-accordion overflowHidden" fit="true" border="false">
 
         <div title="连线" style="background-color:#FFFFFF;" id="basicGraph">
-
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
@@ -172,6 +171,7 @@
 
             </table>
         </div>
+
         <div title="虚拟网络设备" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
@@ -240,6 +240,7 @@
                 </tr>
             </table>
         </div>
+
         <div title="虚拟主机" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
@@ -305,6 +306,7 @@
             </table>
 
         </div>
+
         <div title="物理网络设备" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
@@ -349,6 +351,7 @@
                 </tr>
             </table>
         </div>
+
         <div title="位置图形" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
@@ -381,6 +384,7 @@
     <img onclick="navLevel(this)" id="next" title="转到下层编辑"
     style="display:none;float:right;width:13px;height:4px;cursor: pointer"
     src="themes/icons/down.png"/>
+
     <select id="selectLevel" style="display:none;float:right;width:160px">
 
     <option value="-1">-选择切换当前编辑层-</option></select>
@@ -643,8 +647,8 @@
 <!--TODO-->
 <div region="east" split="true" title="操作区" class="history" style="width: 200px">
     <div id="mainControl" class="easyui-accordion overflowHidden" fit="true" border="false">
-        <p style="text-align: left;font-size: 14px;padding-top: 20px;">节点名称：</p>
-        <p id="node-name" style="text-align: center;font-size: 14px;">（鼠标悬浮节点查看）</p>
+        <p style="text-align: left;font-size: 12px;padding-top: 20px;">鼠标悬浮查看：</p>
+        <p id="node-name" style="text-align: left;font-size: 12px;"></p>
     </div>
 </div>
 
@@ -671,6 +675,7 @@
 <script src="js/network.js" type="text/javascript"></script>
 <script src="js/jquery.ipinput.js" type="text/javascript"></script>
 <script src="js/topologyProperties.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     function navLevel(ele) {
         var selectEle = $('#selectLevel');
@@ -704,13 +709,17 @@
         }
     }
 
-    //节点名字加载器
+    // [节点名字加载器]-用于搜索节点
     var nodeNamesloader = function (param, success, error) {
-        //获取输入的值
+        // 获取输入的值
         var q = param.q || '';
-        //此处q的length代表输入多少个字符后开始查询
-        if (q.length <= 0) return false;
+
+        // 此处q的length代表输入多少个字符后开始查询
+        if (q.length <= 0)
+            return false;
+
         var nodes = editor.stage.find('node[elementType="node"]');
+
         var items = $.map(nodes, function (item, index) {
             if (item.text && item.text.indexOf(q) != -1) {
                 return {
@@ -721,6 +730,7 @@
         });
         success(items);
     };
+
     jQuery(document).ready(function () {
         //jAlert($.i18n.prop('editor.ui.selectLanguage'));
         $(document).on('contextmenu', function (e) {
@@ -780,8 +790,7 @@
         }
 
         // 加载网络拓扑图
-        editor.loadTopology(rootPath + 'json/mydemo004.json', 'static/img/bgImage/bright.png', '${templateId}',
-            '${topologyId}', '');
+        editor.loadTopology(rootPath + 'json/mydemo004.json', 'static/img/bgImage/bright.png', '${templateId}', '${topologyId}', '');
         $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
 
         // 拓扑层跳转
@@ -795,7 +804,7 @@
             $('#queryText').combobox('reload');
         });
 
-        // 搜索设备节点候选框
+        // [搜索设备节点候选框]
         $('#queryText').combobox({
             loader: nodeNamesloader,
             mode: 'remote',

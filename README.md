@@ -51,3 +51,8 @@ js/editor.js
 # License
 
 License: GNU GPL v3.0
+
+
+# record
+* 当 node的visible属性设置为false时，node不可见，但涉及该node的连线仍存在
+* 当 link 的 visible 属性设置为 false 时，满足预期

@@ -6771,7 +6771,7 @@
             },
             {
               "elementType": "link",
-              "visible": true,
+              "visible": false,
               "rotate": 0,
               "scaleX": 1,
               "scaleY": 1,

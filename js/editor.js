@@ -424,8 +424,7 @@ propertyPanel.prototype.saveTopology = function (showAlert) {
  * @param templateId 环境模板ID
  * @param topologyId 拓扑 表记录ID
  */
-propertyPanel.prototype.loadTopology = function (
-    url, backImg, templateId, topologyId, topoLevel) {
+propertyPanel.prototype.loadTopology = function (url, backImg, templateId, topologyId, topoLevel) {
 
     if (!topoLevel)
         topoLevel = '';
@@ -736,6 +735,12 @@ function networkTopologyEditor(mainControl) {
         shadowOffsetY: 6,
     };
 
+    // 绘图区属性
+    this.stage = null;
+    this.scene = null;
+    // 当前模式 可设置为 normal edit select drag
+    this.stageMode = 'normal'
+
     // 布局参数
     this.layout = {};
 
@@ -743,9 +748,6 @@ function networkTopologyEditor(mainControl) {
     this.lastMovedX = 0;
     this.lastMovedY = 0;
 
-    // 绘图区属性
-    this.stage = null;
-    this.scene = null;
 
     // 连线类型
     this.lineType = 'line';
@@ -1263,12 +1265,12 @@ networkTopologyEditor.prototype.replaceStage = function (
  * @param topologyId  拓扑记录ID
  * @param stageJson    拓扑JSON结构
  */
-networkTopologyEditor.prototype.init = function (
-    backImg, templateId, topologyId, stageJson, templateName) {
+networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId, stageJson, templateName) {
     if (!stageJson) {
         jAlert('加载拓扑编辑器失败!');
         return;
     }
+
     this.templateId = templateId;
     this.topologyId = topologyId;
 
@@ -1287,7 +1289,6 @@ networkTopologyEditor.prototype.init = function (
         this.scene.totalLevel = 1;
     } else {
         this.stage = JTopo.createStageFromJson(stageJson, canvas);
-        console.log(stageJson);
         this.scene = this.stage.childs[0];
     }
 
@@ -1305,14 +1306,13 @@ networkTopologyEditor.prototype.init = function (
     }
     $('#selectLevel').append(options);
 
-    //滚轮缩放
-    this.stage.frames = this.config.stageFrames;
-    this.stage.wheelZoom = this.config.defaultScal;
-    this.stage.eagleEye.visible = this.config.eagleEyeVsibleDefault;
+    this.stage.frames = this.config.stageFrames;  // 设置当前舞台播放的帧数/秒
+    this.stage.wheelZoom = this.config.defaultScal;  // 鼠标滚轮缩放操作比例
+    this.stage.eagleEye.visible = this.config.eagleEyeVsibleDefault;  // 是否开启鹰眼
+    this.scene.mode = this.stageMode;  // 设置舞台模式
 
-    this.scene.mode = 'normal';
-    //背景由样式指定
-    //this.scene.background = backImg;
+    // 背景由样式指定
+    this.scene.background = backImg;
 
     // 用来连线的两个节点
     this.tempNodeA = new JTopo.Node('tempA');
@@ -1486,6 +1486,8 @@ networkTopologyEditor.prototype.init = function (
              midList.push(midNode);
          }*/
     });
+
+    // 鼠标离开
     this.scene.mouseout(function (e) {
         if (e.target == null ||
             (e.target != null && !e.target instanceof JTopo.Link))
@@ -1778,10 +1780,48 @@ networkTopologyEditor.prototype.init = function (
             self.tempNodeZ.setLocation(e.x, e.y);
     });
 
+    // 鼠标拖拽
     this.scene.mousedrag(function (e) {
         if (!self.isSelectedMode && self.beginNode)
             self.tempNodeZ.setLocation(e.x, e.y);
     });
+
+    // 鼠标进入事件-TODO
+    this.scene.mouseover(function (event) {
+        Timer.start()
+        console.log(event.target);
+
+        // 进入某个节点
+        if (event.target != null && event.target instanceof JTopo.Node) {
+            $('#node-name').html(event.target.text)
+            // $('#current-time').html(new Date().toLocaleString())
+            // $('.link-tooltip').css('display', 'none')
+            // $('.node-tooltip').css({
+            //     'display': 'block',
+            //     // 'margin-top': menuY,
+            //     // 'margin-left': menuX,
+            //     'cursor': 'pointer'
+            // })
+        } else if (event.target != null && event.target instanceof JTopo.Link) {
+            $('#node-name').html("端口描述：" + event.target.text)
+        } else {
+            $('#node-name').html('（鼠标悬浮节点查看）')
+            // 鼠标进入别的地方
+        }
+    })
+
+    // 鼠标离开事件-TODO
+    this.scene.mouseout(function (event) {
+        let timeSpan = Timer.pause()
+        // 消抖
+        if (timeSpan > 100) {
+            $('#node-name').html('（鼠标悬浮节点查看）')
+            $('#current-time').html('（鼠标悬浮节点查看）')
+            $('.node-tooltip').css('display', 'none')
+            $('.link-tooltip').css('display', 'none')
+            Timer.stop()
+        }
+    })
 
     // 单击编辑器隐藏菜单
     this.stage.click(function (event) {
@@ -1796,6 +1836,7 @@ networkTopologyEditor.prototype.init = function (
     this.stage.mouseout(function (e) {
         // 清空标尺线
         editor.utils.hideRuleLines();
+
         // 删掉节点带出来的连线
         if (self.link && !self.isSelectedMode &&
             (e.target == null || e.target === self.beginNode || e.target ===
@@ -1806,6 +1847,7 @@ networkTopologyEditor.prototype.init = function (
 
     // 画布尺寸自适应
     this.stage.mouseover(function (e) {
+        // 进入某个节点
         if (editor.stage) {
             var w = $('#contextBody').width(), wc = editor.stage.canvas.width,
                 h = $('#contextBody').height(), hc = editor.stage.canvas.height;
@@ -1938,19 +1980,23 @@ networkTopologyEditor.prototype.init = function (
             //return false;
         }
     });
+
     $(document).keyup(function (e) {
         if (e.which == 17) {
             self.isSelectedMode = false;
             return false;
         }
     });
+
     //第一次进入拓扑编辑器,生成stage和scene对象
     if (stageJson == '-1') {
         this.saveTopology(false);
     }
+
     //编辑器初始化完毕关闭loading窗口
     this.closeLoadingWindow();
 };
+
 
 /**
  * 图元拖放功能实现
