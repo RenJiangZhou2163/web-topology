@@ -823,7 +823,7 @@ background:url(../images/modeRightCopy.gif) 3px no-repeat;}
 }
 
 .titleTool {
-    height: 64px;
+    height: 60px;
     background-color: #FFFFFF;
 }
 
@@ -851,11 +851,11 @@ background:url(../images/modeRightCopy.gif) 3px no-repeat;}
     background-color: #c7dbfc;
 }
 
-/*背景*/
+/*绘图区的默认背景*/
 .mapContext {
     overflow: auto;
     position: relative;
-    /*background: #fff url(/web-topology/static/img/bgImage/bright.png);*/
+    /*background: #fff url(../static/img/bgImage/bright.png);*/
 }
 
 .history {

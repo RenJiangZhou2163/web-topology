@@ -81,7 +81,7 @@ function propertyPanel(mainControlDiv) {
         showSelected: 'j',
         isMouseOver: 'k',
         nodeId: 'l',
-        dataType: 'm',
+        nodeType: 'm',
         nodeImage: 'n',
         text: 'z',
         font: 'o',
@@ -125,15 +125,16 @@ function propertyPanel(mainControlDiv) {
 
 /**
  * 删除指定数据类型设备的属性面板
- * @param b 设备图形的dataType属性
+ * @param b 设备图形的nodeType属性
  */
 propertyPanel.prototype.clearOldPanels = function (b) {
     var c = this, a = c.props, d = a[b];
+
     if (c.control) {
         if (d) {
             var i;
 
-            //删除面板
+            // 删除面板
             for (i = 0; i < d.length; i++) {
                 try {
                     c.control.accordion('remove', d[i]['title']);
@@ -158,7 +159,7 @@ propertyPanel.prototype.clearOldPanels = function (b) {
  * 创建属性面板
  * 1.普通设备的创建
  * 2.创建自定义路由的时候,需要动态的创建其连接的路由器信息
- * @param b 设备图形的dataType属性
+ * @param b 设备图形的nodeType属性
  * @param templateid 节点的模板ID
  * @param moduleId 创建的节点ID
  * @param 自定义路由器的节点实例
@@ -167,7 +168,7 @@ propertyPanel.prototype.createNewPanels = function (
     b, templateid, moduleId, node) {
     if (!templateid) templateid = '';
     var c = this, a = c.props, d = a[b];
-    if (node instanceof JTopo.Node && node.dataType == 'ECVR') {
+    if (node instanceof JTopo.Node && node.nodeType == 'ECVR') {
         //固定的属性面板是3个
         d = d.slice(0, 3);
     }
@@ -192,7 +193,7 @@ propertyPanel.prototype.createNewPanels = function (
         //打开第一个面板
         c.control.accordion('select', 0);
         //自定义路由器需要动态创建其连接的交换机
-        if (node instanceof JTopo.Node && node.dataType == 'ECVR') {
+        if (node instanceof JTopo.Node && node.nodeType == 'ECVR') {
             //a["ECVR"] = a["ECVR"].slice(0,d.length);
             var connectedDevice = node.outLinks;
             if (connectedDevice.length > 0) {
@@ -213,12 +214,12 @@ propertyPanel.prototype.createNewPanels = function (
  * 不会重新创建面板
  * @param templateid 节点的模板ID
  * @param moduleId
- * @param dataType
+ * @param nodeType
  */
 propertyPanel.prototype.refreshPanel = function (
-    templateid, moduleId, dataType) {
+    templateid, moduleId, nodeType) {
     if (!templateid) templateid = '';
-    var c = this, a = c.props, d = a[dataType];
+    var c = this, a = c.props, d = a[nodeType];
     var e = c.control;
     if (e && d && d.length > 0) {
         var i = 0;
@@ -238,17 +239,17 @@ propertyPanel.prototype.refreshPanel = function (
  * @param moduleId
  */
 propertyPanel.prototype.selectPanel = function (
-    b, templateid, moduleId, dataType) {
+    b, templateid, moduleId, nodeType) {
     return;
     var c = editor, a = c.props;
     if (!b || !moduleId) return;
     var e = c.control.accordion('getPanel', b);
     if (e) {
         var i = 0;
-        for (i = 0; i < a[dataType].length; i++) {
-            if (b == a[dataType][i]['title']) {
+        for (i = 0; i < a[nodeType].length; i++) {
+            if (b == a[nodeType][i]['title']) {
                 e.panel('refresh',
-                    a[dataType][i]['url'] + '?templateId=' + templateid + '&moduleId=' +
+                    a[nodeType][i]['url'] + '?templateId=' + templateid + '&moduleId=' +
                     moduleId + '&envTemplateId=' + editor.templateId);
                 break;
             }
@@ -572,9 +573,9 @@ propertyPanel.prototype.deleteAllNodes = function (templateId) {
  * 删除ID指定的节点
  * @param id
  * @param type   节点:node,连线:link
- * @param dataType 设备数据类型
+ * @param nodeType 设备数据类型
  */
-propertyPanel.prototype.deleteNodeById = function (id, type, dataType) {
+propertyPanel.prototype.deleteNodeById = function (id, type, nodeType) {
     if (!id) {
         return;
     }
@@ -587,7 +588,7 @@ propertyPanel.prototype.deleteNodeById = function (id, type, dataType) {
         data: {
             'id': id,
             'type': type,
-            'dataType': dataType,
+            'nodeType': nodeType,
         },
         error: function () {
             self.closeLoadingWindow();
@@ -630,8 +631,8 @@ propertyPanel.prototype.getEnvTemplate = function () {
 propertyPanel.prototype.initPropertyPanel = function () {
     let c = this;
     // 回退是清除属性面板
-    for (let datatype in this.props) {
-        c.clearOldPanels(datatype);
+    for (let nodeType in this.props) {
+        c.clearOldPanels(nodeType);
     }
 };
 
@@ -698,7 +699,7 @@ function networkTopologyEditor(mainControl) {
         linkShadowColor: 'rgba(0,0,0,0.5)',
         linkFont: '12px Consolas',                  // 节点字体
         linkFontColor: 'black',                     // 连线文字颜色,如"255,255,0"
-        linkArrowsRadius: 0,                        // 线条箭头半径
+        linkArrowsRadius: null,                     // 线条箭头半径，jtopo-0.4.8-dev.js中以linkArrowsRadius是否为null做判断
         linkDefaultWidth: 1,                        // 连线宽度
         linkOffsetGap: 40,                          // 折线拐角处的长度
         linkDirection: 'horizontal',                // 折线的方向
@@ -1329,8 +1330,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
     // 双击编辑文字
     this.scene.dbclick(function (e) {
         if (e.target)
-            console.log(e.target),
-                self.currentNode = e.target;
+            self.currentNode = e.target;
         else
             return;
 
@@ -1341,6 +1341,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
             if (nType == 'CL' || nType == 'HO') {
                 return;
             }
+
             // 子网图形，双击进入子网编辑界面，实现分层网络拓扑设计
             if (nType == 'subnet') {
                 // 新建编辑层先判断当前层是否已经保存好
@@ -1358,8 +1359,11 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                 // 2，下一层有节点，直接跳转到相应的层
                 var subnetNode = editor.utils.getNode(e.target.id);
 
-                if (!subnetNode) return;
+                if (!subnetNode)
+                    return;
+
                 var currLevel = subnetNode.nextLevel;
+
                 // 获取下一层
                 if (currLevel != '0') {//转到下一层
                     editor.stage.topoLevel = parseInt(currLevel);
@@ -1396,10 +1400,10 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
             if (e.target.nodeType == 'FW') {
                 var fwLinks = e.target.outLinks.concat(e.target.inLinks);
                 fwLinks.forEach(function (l) {
-                    if (l.nodeA.dataType == 'VR') {
+                    if (l.nodeA.nodeType == 'VR') {
                         deviceTemplateId = l.nodeA.templateId;
                     }
-                    if (l.nodeZ.dataType == 'VR') {
+                    if (l.nodeZ.nodeType == 'VR') {
                         deviceTemplateId = l.nodeZ.templateId;
                     }
                     return false;
@@ -1489,8 +1493,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
 
     // 鼠标离开
     this.scene.mouseout(function (e) {
-        if (e.target == null ||
-            (e.target != null && !e.target instanceof JTopo.Link))
+        if (e.target == null || (e.target != null && !e.target instanceof JTopo.Link))
             for (var i = 0; i < midList.length; i++) {
                 midList[i].visible = false;
             }
@@ -1506,8 +1509,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
         if (e.target)
             self.currentNode = e.target;
 
-        if (e.target && e.target instanceof JTopo.Node && e.target.layout &&
-            e.target.layout.on && e.target.layout.type && e.target.layout.type != 'auto')
+        if (e.target && e.target instanceof JTopo.Node && e.target.layout && e.target.layout.on && e.target.layout.type && e.target.layout.type != 'auto')
             JTopo.layout.layoutNode(this, e.target, true, e);
 
         // 右键松开，处理右键菜单
@@ -1600,21 +1602,20 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                 }).show();
             }
 
-        } else if (e.button == 1) {  // 中键
+        } else if (e.button == 1) { // 中键
 
-        } else if (e.button == 0) {  // 左键
+        } else if (e.button == 0) { // 左键
             if (e.target != null && e.target instanceof JTopo.Node && !self.isSelectedMode) {
 
+                // 开始连线，并随着鼠标移动创建动态的线条
                 if (self.beginNode == null) {
                     self.beginNode = e.target;
 
-                    if (self.lineType == 'line') {
-                        // 直线
+                    if (self.lineType == 'line') { // 直线
                         self.link = new JTopo.Link(self.tempNodeA, self.tempNodeZ);
                         self.link.lineType = 'line';
 
-                    } else if (self.lineType == 'foldLine') {
-                        // 折线
+                    } else if (self.lineType == 'foldLine') { // 折线
                         self.link = new JTopo.FoldLink(self.tempNodeA, self.tempNodeZ);
                         self.link.lineType = 'foldLine';
                         self.link.direction = self.config.linkDirection;
@@ -1638,7 +1639,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                     self.tempNodeA.setLocation(e.x, e.y);
                     self.tempNodeZ.setLocation(e.x, e.y);
 
-                } else if (e.target && e.target instanceof JTopo.Node && self.beginNode !== e.target) {  // 结束连线
+                } else if (e.target && e.target instanceof JTopo.Node && self.beginNode !== e.target) { // 结束连线
                     var endNode = e.target;
 
                     // 判断两个节点是否有循环引用
@@ -1665,7 +1666,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                     // }
 
                     // 自定义路由器设备不能被别的设备指向
-                    // if (endNode.dataType == 'ECVR') {
+                    // if (endNode.nodeType == 'ECVR') {
                     //   if (self.link)
                     //     this.remove(self.link);
                     //   self.beginNode = null;
@@ -1673,8 +1674,8 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                     // }
 
                     // 自定义网络直接连接的设备必须是交换机
-                    // if (self.beginNode.dataType == 'ECVR') {
-                    //   if (endNode && endNode.dataType != 'EC') {
+                    // if (self.beginNode.nodeType == 'ECVR') {
+                    //   if (endNode && endNode.nodeType != 'EC') {
                     //     if (self.link)
                     //       this.remove(self.link);
                     //     self.beginNode = null;
@@ -1688,8 +1689,8 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                     // }
 
                     // [限制防火墙只能连一个路由器]
-                    // if (self.beginNode.dataType == 'FW') {
-                    //   if (endNode && endNode.dataType != 'VR') {
+                    // if (self.beginNode.nodeType == 'FW') {
+                    //   if (endNode && endNode.nodeType != 'VR') {
                     //     if (self.link)
                     //       this.remove(self.link);
                     //     self.beginNode = null;
@@ -1705,12 +1706,12 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
                     // }
 
                     // [限制VR只能连一个防火墙]
-                    // if (self.beginNode.dataType == 'VR') {
-                    //   if (endNode && endNode.dataType == 'FW') {
+                    // if (self.beginNode.nodeType == 'VR') {
+                    //   if (endNode && endNode.nodeType == 'FW') {
                     //     var lines = endNode.outLinks.concat(endNode.inLinks);
                     //     for (var ln = 0; ln < lines.length; ln++) {
-                    //       if (lines[ln].nodeA.dataType == 'VR' ||
-                    //           lines[ln].nodeZ.dataType == 'VR') {
+                    //       if (lines[ln].nodeA.nodeType == 'VR' ||
+                    //           lines[ln].nodeZ.nodeType == 'VR') {
                     //         if (self.link)
                     //           this.remove(self.link);
                     //         self.beginNode = null;
@@ -1789,7 +1790,6 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
     // 鼠标进入事件-TODO
     this.scene.mouseover(function (event) {
         Timer.start()
-        console.log(event.target);
 
         // 进入某个节点
         if (event.target != null && event.target instanceof JTopo.Node) {
@@ -1999,43 +1999,48 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
 
 
 /**
- * 图元拖放功能实现
+ * 图元拖放功能实现:从设备区拖拽图标到绘图区，实现设备添加
  * @param modeDiv
  * @param drawArea
  */
 networkTopologyEditor.prototype.drag = function (modeDiv, drawArea, text) {
-    if (!text) text = '';
+    if (!text)
+        text = '';
+
     var self = this;
-    //拖拽开始,携带必要的参数
+
+    // 拖拽开始,携带必要的参数
     modeDiv.ondragstart = function (e) {
         e = e || window.event;
         var dragSrc = this;
         var backImg = $(dragSrc).find('img').eq(0).attr('src');
         backImg = backImg.substring(backImg.lastIndexOf('/') + 1);
-        var datatype = $(this).attr('datatype');
+        var nodeType = $(this).attr('nodeType');
         try {
             //IE只允许KEY为text和URL
-            e.dataTransfer.setData('text', backImg + ';' + text + ';' + datatype);
+            e.dataTransfer.setData('text', backImg + ';' + text + ';' + nodeType);
         } catch (ex) {
             console.log(ex);
         }
     };
-    //阻止默认事件
+
+    // 阻止默认事件
     drawArea.ondragover = function (e) {
         e.preventDefault();
         return false;
     };
-    //创建节点
+
+    // 创建节点
     drawArea.ondrop = function (e) {
         e = e || window.event;
         var data = e.dataTransfer.getData('text');
-        var img, text, datatype;
+        var img, text, nodeType;
         if (data) {
             var datas = data.split(';');
             if (datas && datas.length == 3) {
                 img = datas[0];
                 text = datas[1];
-                datatype = datas[2];
+                nodeType = datas[2];
                 var node = new JTopo.Node();
                 node.fontColor = self.config.nodeFontColor;
                 node.setBound(
@@ -2044,12 +2049,13 @@ networkTopologyEditor.prototype.drag = function (modeDiv, drawArea, text) {
                     (e.layerY ? e.layerY : e.offsetY) - self.scene.translateY -
                     self.config.nodeDefaultHeight / 2, self.config.nodeDefaultWidth,
                     self.config.nodeDefaultHeight);
-                //设备图片
-                node.setImage('./icon/' + img);
-                //var cuurId = "device" + (++self.modeIdIndex);
+                // 设备图片
+                node.setImage('./static/img/nodeImage/' + img);
+
+                // var cuurId = "device" + (++self.modeIdIndex);
                 var cuurId = '' + new Date().getTime() * Math.random();
                 node.nodeId = cuurId;
-                node.dataType = datatype;
+                node.nodeType = nodeType;
                 node.nodeImage = img;
                 ++self.modeIdIndex;
                 node.text = text;
@@ -2195,7 +2201,7 @@ editor.utils = {
     deleteNode: function (n) {
         editor.scene.remove(n);
         if (n.id)
-            editor.deleteNodeById(n.id, n.elementType, n.dataType);
+            editor.deleteNodeById(n.id, n.elementType, n.nodeType);
         editor.currentNode = null;
         // 连线重置
         editor.beginNode = null;
@@ -2277,7 +2283,7 @@ editor.utils = {
             var newNode = new JTopo.Node();
             n.serializedProperties.forEach(function (i) {
                 //只复制虚拟机的模板属性
-                if (i == 'templateId' && n.dataType != 'VM') return true;
+                if (i == 'templateId' && n.nodeType != 'VM') return true;
                 newNode[i] = n[i];
             });
             newNode.id = '';
@@ -2543,7 +2549,7 @@ editor.utils = {
         var saved = false;
         editor.stage.childs.forEach(function (s) {
             s.childs.forEach(function (n) {
-                if (n.id && n.elementType == 'node' && n.dataType == 'subnet') {
+                if (n.id && n.elementType == 'node' && n.nodeType == 'subnet') {
                     saved = true;
                     return saved;
                 }

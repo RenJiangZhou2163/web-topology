@@ -30,11 +30,14 @@
 
 <body class="easyui-layout bodySelectNone" id="body" onselectstart="return false">
 
+<!--EasyUI Layout 布局 北区 north-->
 <div id="title" region="north" split="false" border="false" class="titleTool" style="background: #f1f1f1;">
     <div id="header" class="navbar">
         <div class="navbar-inner">
             <!-- logo -->
             <a class="brand hidden-phone" style="float:left;" href="index.html">网络拓扑编辑器</a>
+
+            <!--快捷工具栏-->
             <div style="float:right; margin:7px 10px 0 0;">
                 <input id="queryText">
 
@@ -107,16 +110,14 @@
     </div>
 </div>
 
-
+<!--EasyUI Layout 布局 西区 west-->
 <div id="leftContent" region="west" split="true" title="设备区" class="leftContent">
-
     <div class="easyui-accordion overflowHidden" fit="true" border="false">
-
         <div title="连线" style="background-color:#FFFFFF;" id="basicGraph">
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
-                        <div id="baseLine1" divType="baseMode" gtype="L" datatype="line" draggable="false"
+                        <div id="baseLine1" divType="baseMode" gtype="L" nodeType="line" draggable="false"
                              onclick="editor.lineType='line'">
                             <div class="title">&nbsp;</div>
                             <img id="simpleLine" name="backGroundImg" src="images/line1.png" class="nodeStyle"/>
@@ -127,7 +128,7 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="baseLine2" divType="baseMode" gtype="L" datatype="foldLine" draggable="false"
+                        <div id="baseLine2" divType="baseMode" gtype="L" nodeType="foldLine" draggable="false"
                              onclick="editor.lineType='foldLine';editor.config.linkDirection='horizontal';">
                             <div class="title">&nbsp;</div>
                             <img id="foldLineH" name="backGroundImg" src="images/3t.png" class="nodeStyle"/>
@@ -138,7 +139,7 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="baseLine5" divType="baseMode" gtype="L" datatype="foldLine" draggable="false"
+                        <div id="baseLine5" divType="baseMode" gtype="L" nodeType="foldLine" draggable="false"
                              onclick="editor.lineType='foldLine';editor.config.linkDirection='vertical';">
                             <div class="title">&nbsp;</div>
                             <img id="foldLineV" name="backGroundImg" src="images/3th.png" class="nodeStyle"/>
@@ -149,7 +150,7 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="baseLine3" divType="baseMode" gtype="L" datatype="foldLine" draggable="false"
+                        <div id="baseLine3" divType="baseMode" gtype="L" nodeType="foldLine" draggable="false"
                              onclick="editor.lineType='flexLine';editor.config.linkDirection='horizontal';">
                             <div class="title">&nbsp;</div>
                             <img id="flexLineH" name="backGroundImg" src="images/1th.png" class="nodeStyle"/>
@@ -160,7 +161,7 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="baseLine4" divType="baseMode" gtype="L" datatype="foldLine" draggable="false"
+                        <div id="baseLine4" divType="baseMode" gtype="L" nodeType="foldLine" draggable="false"
                              onclick="editor.lineType='flexLine';editor.config.linkDirection='vertical';">
                             <div class="title">&nbsp;</div>
                             <img id="flexLineV" name="backGroundImg" src="images/1t.png" class="nodeStyle"/>
@@ -171,12 +172,11 @@
 
             </table>
         </div>
-
         <div title="虚拟网络设备" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Subnet" divType="mode" datatype="子网" draggable="true" title="子网">
+                        <div id="Subnet" divType="mode" nodeType="subnet" draggable="true" title="子网">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="static/img/nodeImage/subnet.svg" class="nodeStyle"/>
                             <br><span>子网</span>
@@ -186,9 +186,9 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="ExtChange" divType="mode" datatype="EC" draggable="true">
+                        <div id="ExtChange" divType="mode" nodeType="EC" draggable="true">
                             <div class="title">&nbsp;</div>
-                            <img name="backGroundImg" src="icon/tpIcon_5.png" class="nodeStyle"/>
+                            <img name="backGroundImg" src="static/img/nodeImage/frame_switch.svg" class="nodeStyle"/>
                             <br><span>交换机</span>
                         </div>
                     </td>
@@ -196,32 +196,31 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Router" divType="mode" datatype="VR" draggable="true" title="使用基于CloudStack提供VR功能">
+                        <div id="Router" divType="mode" nodeType="VR" draggable="true" title="使用基于CloudStack提供VR功能">
                             <div class="title">&nbsp;</div>
-                            <img name="backGroundImg" src="icon/tpIcon_9.png" class="nodeStyle"/>
+                            <img name="backGroundImg" src="static/img/nodeImage/router.svg" class="nodeStyle"/>
                             <br><span>CS路由器</span>
                         </div>
 
                     </td>
                 </tr>
 
+                <!--                <tr>-->
+                <!--                    <td width="100%" align="center">-->
+                <!--                        <div id="SelfExtChange" divType="mode" nodeType="ECVR" draggable="true"-->
+                <!--                             title="使用一台VM主机安装多个网卡进行子网的互通，充当路由控制器">-->
+                <!--                            <div class="title">&nbsp;</div>-->
+                <!--                            <img name="backGroundImg" src="icon/vr-selfdefined.png" class="nodeStyle"/>-->
+                <!--                            <br><span>VM路由控制器</span>-->
+                <!--                        </div>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
+
                 <tr>
                     <td width="100%" align="center">
-                        <div id="SelfExtChange" divType="mode" datatype="ECVR" draggable="true"
-                             title="使用一台VM主机安装多个网卡进行子网的互通，充当路由控制器">
+                        <div id="Firewall" divType="mode" nodeType="FW" draggable="true">
                             <div class="title">&nbsp;</div>
-                            <img name="backGroundImg" src="icon/vr-selfdefined.png" class="nodeStyle"/>
-                            <br><span>VM路由控制器</span>
-                        </div>
-
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="100%" align="center">
-                        <div id="Firewall" divType="mode" datatype="FW" draggable="true">
-                            <div class="title">&nbsp;</div>
-                            <img name="backGroundImg" src="icon/tpIcon_4.png" class="nodeStyle"/>
+                            <img name="backGroundImg" src="static/img/nodeImage/firewall.svg" class="nodeStyle"/>
                             <br><span>防火墙</span>
                         </div>
 
@@ -230,9 +229,9 @@
 
                 <tr>
                     <td width="100%" align="center">
-                        <div id="f5" divType="mode" datatype="f5" draggable="true">
+                        <div id="f5" divType="mode" nodeType="f5" draggable="true">
                             <div class="title">&nbsp;</div>
-                            <img name="backGroundImg" src="icon/f5.png" class="nodeStyle"/>
+                            <img name="backGroundImg" src="static/img/nodeImage/f5.svg" class="nodeStyle"/>
                             <br><span>负载均衡</span>
                         </div>
 
@@ -240,12 +239,11 @@
                 </tr>
             </table>
         </div>
-
         <div title="虚拟主机" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
-                        <div id="ClientVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="ClientVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/mypc.png" class="nodeStyle"/>
                             <br><span>虚拟主机</span>
@@ -255,7 +253,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="PCVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="PCVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_2.png" class="nodeStyle"/>
                             <br><span>客户机</span>
@@ -265,7 +263,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="ServerVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="ServerVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_6.png" class="nodeStyle"/>
                             <br><span>服务器</span>
@@ -275,7 +273,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="WebServerVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="WebServerVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/webserver.png" class="nodeStyle"/>
                             <br><span>Web服务器</span>
@@ -285,7 +283,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="MailServerVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="MailServerVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/mailserver.png" class="nodeStyle"/>
                             <br><span>邮件服务器</span>
@@ -295,7 +293,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="FileServerVM" divType="mode" datatype="VM" draggable="true">
+                        <div id="FileServerVM" divType="mode" nodeType="VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/fileserver.png" class="nodeStyle"/>
                             <br><span>文件服务器</span>
@@ -306,12 +304,11 @@
             </table>
 
         </div>
-
         <div title="物理网络设备" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Py_VM" divType="mode" datatype="Py_VM" draggable="true">
+                        <div id="Py_VM" divType="mode" nodeType="Py_VM" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/py_VM.png" class="nodeStyle"/>
                             <br><span>物理主机</span>
@@ -321,7 +318,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Py_ExtChange" divType="mode" datatype="Py_EC" draggable="true">
+                        <div id="Py_ExtChange" divType="mode" nodeType="Py_EC" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/py_EC.png" class="nodeStyle"/>
                             <br><span>物理交换机</span>
@@ -331,7 +328,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Py_Firewall" divType="mode" datatype="Py_FW" draggable="true">
+                        <div id="Py_Firewall" divType="mode" nodeType="Py_FW" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_4.png" class="nodeStyle"/>
                             <br><span>物理防火墙</span>
@@ -341,7 +338,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Py_Router" divType="mode" datatype="Py_VR" draggable="true">
+                        <div id="Py_Router" divType="mode" nodeType="Py_VR" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/py_VR.png" class="nodeStyle"/>
                             <br><span>物理路由器</span>
@@ -351,12 +348,11 @@
                 </tr>
             </table>
         </div>
-
         <div title="位置图形" class="flowImag" style="background-color:#FFFFFF;">
             <table class="tp_table" width="100%">
                 <tr>
                     <td width="100%" align="center">
-                        <div id="Cloud" divType="mode" datatype="CL" draggable="true">
+                        <div id="Cloud" divType="mode" nodeType="CL" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_3.png" class="nodeStyle"/>
                             <br><span>云</span>
@@ -366,7 +362,7 @@
                 </tr>
                 <tr>
                     <td width="100%" align="center">
-                        <div id="House" divType="mode" datatype="HO" draggable="true">
+                        <div id="House" divType="mode" nodeType="HO" draggable="true">
                             <div class="title">&nbsp;</div>
                             <img name="backGroundImg" src="icon/tpIcon_1.png" class="nodeStyle"/>
                             <br><span>房屋</span>
@@ -380,20 +376,26 @@
     </div>
 </div>
 
-<div region="center" title='当前正在编辑的拓扑图："demo"
+<!--EasyUI Layout 布局 中区 center-->
+<div region="center" title='当前正在编辑的拓扑图："洛阳数据中心"
     <img onclick="navLevel(this)" id="next" title="转到下层编辑"
-    style="display:none;float:right;width:13px;height:4px;cursor: pointer"
-    src="themes/icons/down.png"/>
+        style="display:none;float:right;width:13px;height:4px;cursor: pointer"
+        src="themes/icons/down.png"/>
 
     <select id="selectLevel" style="display:none;float:right;width:160px">
-
     <option value="-1">-选择切换当前编辑层-</option></select>
 
-    <img onclick="navLevel(this)" id="pre" title="返回上层编辑" style="display:none;float:right;width:13px;height:4px;cursor: pointer" src="themes/icons/up.png"/>'
+    <img onclick="navLevel(this)" id="pre" title="返回上层编辑"
+        style="display:none;float:right;width:13px;height:4px;cursor: pointer"
+        src="themes/icons/up.png"/>'
      id="contextBody" class="mapContext">
 
-    <textarea onkeydown="if(event.keyCode==13)this.blur();"
-              style="display:none;width: 60px;position: absolute;z-index: 9" id="deviceText"></textarea>
+    <!--节点文字、链路描述 编辑框-->
+    <!--keyCode==13代表的就是回车键Enter-->
+    <textarea onkeydown="if(event.keyCode==13) this.blur();"
+              style="display:none;width: 60px;position: absolute;z-index: 9"
+              id="deviceText">
+        </textarea>
 
     <div id="nodeMainMenu" class="modeRight2" style="z-index: 9">
         <div class="applicationLayout"
@@ -639,6 +641,7 @@
              onMouseOut="this.style.backgroundColor=''">
             <span class="menuSpan">圆形布局</span></div>
     </div>
+
     <canvas id="drawCanvas" class="mapContext">
         您的浏览器不支持HTML5!
     </canvas>
@@ -696,7 +699,7 @@
             }
         }
         if (self.attr('id') == 'next') {
-            //到第一层
+            // 到第一层
             if (value == maxLevel)
                 return;
             else
@@ -784,13 +787,16 @@
 
         for (var i = 0; i < modeLength; i++) {
             modes[i].gtype = modes[i].getAttribute('gtype');
-            modes[i].datatype = modes[i].getAttribute('datatype');
+            modes[i].nodeType = modes[i].getAttribute('nodeType');
+
             var text = $(modes[i]).find('span').eq(0).text();
             editor.drag(modes[i], document.getElementById('drawCanvas'), text);
+            console.log(modes[i]);
         }
 
         // 加载网络拓扑图
-        editor.loadTopology(rootPath + 'json/mydemo004.json', 'static/img/bgImage/bright.png', '${templateId}', '${topologyId}', '');
+        editor.loadTopology(rootPath + 'json/mydemo005.json', 'static/img/bgImage/bright.png', '${templateId}', '${topologyId}', '');
+
         $('#selectLevel').parent().css({'height': '22px', 'line-height': '22px'});
 
         // 拓扑层跳转

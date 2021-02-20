@@ -74,7 +74,7 @@ NetworkTopology.prototype.selectPanel=function(b,templateid,moduleid)
 	var m=document.getElementById(moduleid);
 	if (m)
 	{
-		dd=m.datatype;
+		dd=m.nodeType;
 	    if (dd)
 	    {
 	    	d=a[dd];
@@ -150,8 +150,8 @@ NetworkTopology.prototype.getEnvTemplate = function(){
 NetworkTopology.prototype.initPropertyPanle = function(){
 	var c = this;
 	//回退是清除属性面板
-    for(var datatype in allNetworkProperties){
-    	c.clearOldPanels(datatype);
+    for(var nodeType in allNetworkProperties){
+    	c.clearOldPanels(nodeType);
     }
 };
 /**

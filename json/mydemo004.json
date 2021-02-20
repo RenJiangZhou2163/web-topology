@@ -21,6 +21,25 @@
           "childs": [
             {
               "elementType": "node",
+              "x": -900,
+              "y": 793.25,
+              "width": 16,
+              "height": 16,
+              "visible": true,
+              "rotate": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "zIndex": 3,
+              "nodeId": 6442,
+              "nodeType": "EC",
+              "nodeParams": "",
+              "nodeImage": "subnet.svg",
+              "text": "subnet",
+              "textPosition": "Bottom_Center",
+              "layout": ""
+            },
+            {
+              "elementType": "node",
               "x": 751.58,
               "y": 846.32,
               "width": 16,

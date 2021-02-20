@@ -243,7 +243,6 @@
                         // b: scene
                         let nodes = b.getAllNodes();
                         d.forEach(function (a) {
-                            console.log(a);
                             let c = null, d = a.elementType;
 
                             if ('link' != d && 'container' != d) {
@@ -446,7 +445,6 @@
                         // b: scene
                         let nodes = b.getAllNodes();
                         d.forEach(function (a) {
-                            console.log(a);
                             let c = null, d = a.elementType;
 
                             if ('link' != d && 'container' != d) {
@@ -912,14 +910,18 @@
         function intersectionLineBound(a, b) {
             var c = JTopo.util.lineF(b.left, b.top, b.left, b.bottom),
                 d = JTopo.util.intersection(a, c);
-            return null == d &&
-            (c = JTopo.util.lineF(b.left, b.top, b.right, b.top),
-                d = JTopo.util.intersection(a, c),
-            null == d && (c = JTopo.util.lineF(b.right, b.top, b.right, b.bottom),
-                d = JTopo.util.intersection(a, c),
-            null == d && (c = JTopo.util.lineF(b.left, b.bottom, b.right, b.bottom),
-                d = JTopo.util.intersection(a, c)))),
-                d;
+
+            return null == d && (
+                c = JTopo.util.lineF(b.left, b.top, b.right, b.top),
+                    d = JTopo.util.intersection(a, c),
+                null == d && (
+                    c = JTopo.util.lineF(b.right, b.top, b.right, b.bottom),
+                        d = JTopo.util.intersection(a, c),
+                    null == d && (
+                        c = JTopo.util.lineF(b.left, b.bottom, b.right, b.bottom),
+                            d = JTopo.util.intersection(a, c))
+                )
+            ), d;
         }
 
         requestAnimationFrame = window.requestAnimationFrame ||
@@ -1536,7 +1538,6 @@
                 // b: stage
                 // c: JSON 数据
                 this.toJson = function () {
-                    console.log('stage 属性 json');
                     {
                         var b = this,
                             c = '{"version":"' + JTopo.version + '","deviceNum":"' +
@@ -1569,13 +1570,11 @@
                 },
 
                 function () {
-                    0 == stage.frames ?
-                        setTimeout(arguments.callee, 100) :
-                        stage.frames < 0 ?
-                            (stage.repaint(),
-                                setTimeout(arguments.callee, 1e3 / -stage.frames)) :
-                            (stage.repaint(),
-                                setTimeout(arguments.callee, 1e3 / stage.frames));
+                    0 == stage.frames ? setTimeout(arguments.callee, 100) : stage.frames < 0 ?
+                        (stage.repaint(),
+                            setTimeout(arguments.callee, 1e3 / -stage.frames)) :
+                        (stage.repaint(),
+                            setTimeout(arguments.callee, 1e3 / stage.frames));
                 }(),
 
                 setTimeout(function () {
@@ -1856,8 +1855,7 @@
                 // 添加对象到当前场景中来
                 this.add = function (a) {
                     this.childs.push(a),
-                    null == this.zIndexMap[a.zIndex] &&
-                    (this.zIndexMap[a.zIndex] = [],
+                    null == this.zIndexMap[a.zIndex] && (this.zIndexMap[a.zIndex] = [],
                         this.zIndexArray.push(a.zIndex),
                         this.zIndexArray.sort(function (a, b) {
                             return a - b;
@@ -1959,8 +1957,7 @@
                         this.mouseDownEvent = c,
                     this.mode == JTopo.SceneMode.normal)
                         this.selectElement(c),
-                        (null == this.currentElement || this.currentElement instanceof
-                            JTopo.Link) && 1 == this.translate &&
+                        (null == this.currentElement || this.currentElement instanceof JTopo.Link) && 1 == this.translate &&
                         (this.lastTranslateX = this.translateX,
                             this.lastTranslateY = this.translateY);
                     else {
@@ -2260,7 +2257,6 @@
 
                 // scene 属性序列化成json数据
                 this.toJson = function () {
-                    console.log('scene 属性 json');
                     {
                         var a = this, b = '{';
                         this.serializedProperties.length;
@@ -3210,8 +3206,10 @@
     function (a) {
         function b(a, b) {
             var c = [];
+
             if (null == a || null == b)
                 return c;
+
             if (a && b && a.outLinks && b.inLinks)
                 for (var d = 0; d < a.outLinks.length; d++)
                     for (var e = a.outLinks[d], f = 0; f < b.inLinks.length; f++) {
@@ -3237,16 +3235,25 @@
             return c(a, b).length;
         }
 
+        // 拓扑绘制-link-line
+        // b: link 起点
+        // c: link 终点
+        // g
         function f(b, c, g) {
             function h(b, c) {
-                var d = a.util.lineF(b.cx, b.cy, c.cx, c.cy),
-                    e = b.getBound(),
-                    f = a.util.intersectionLineBound(d, e);
+                var d = a.util.lineF(b.cx, b.cy, c.cx, c.cy),  //
+                    e = b.getBound(),  //
+                    f = a.util.intersectionLineBound(d, e);  //
                 return f;
             }
 
             this.initialize = function (b, c, d) {
-                if (f.prototype.initialize.apply(this, arguments), this.elementType = 'link', this.zIndex = a.zIndex_Link, 0 != arguments.length) {
+                if (
+                    f.prototype.initialize.apply(this, arguments),
+                        this.elementType = 'link',
+                        this.zIndex = a.zIndex_Link,
+                    0 != arguments.length
+                ) {
                     this.text = d,
                         this.nodeA = b,
                         this.nodeZ = c,
@@ -3301,6 +3308,7 @@
                     });
                 },
 
+                // 从JSON文件绘制拓扑-获取link起点位置
                 this.getStartPosition = function () {
                     var a = {
                         x: this.nodeA.cx,
@@ -3309,8 +3317,12 @@
                     return a;
                 },
 
+                // 从JSON文件绘制拓扑-获取link终点位置
                 this.getEndPosition = function () {
                     var a;
+                    // console.log(this.arrowsRadius);  // 0
+                    // console.log(this.arrowsRadius == null);  // false
+                    // console.log(this.arrowsRadius == 0);  // true
                     return null != this.arrowsRadius && (a = h(this.nodeZ, this.nodeA)),
                     null == a && (a = {
                         x: this.nodeZ.cx,
@@ -3377,20 +3389,18 @@
                             y: c.y,
                         }), a;
                 },
+
                 this.paintPath = function (a, b) {
                     if (this.nodeA === this.nodeZ)
                         return void this.paintLoop(a);
-                    a.beginPath(),
-                        a.moveTo(b[0].x, b[0].y);
+
+                    a.beginPath(), a.moveTo(b[0].x, b[0].y);
 
                     for (var c = 1; c < b.length; c++)
-                        null == this.dashedPattern ?
-                            a.lineTo(b[c].x, b[c].y) :
-                            a.JTopoDashedLineTo(b[c - 1].x, b[c - 1].y, b[c].x, b[c].y,
-                                this.dashedPattern);
+                        null == this.dashedPattern ? a.lineTo(b[c].x, b[c].y) : a.JTopoDashedLineTo(b[c - 1].x, b[c - 1].y, b[c].x, b[c].y, this.dashedPattern);
+
                     if (a.stroke(), a.closePath(), null != this.arrowsRadius) {
-                        var d = b[b.length - 2],
-                            e = b[b.length - 1];
+                        var d = b[b.length - 2], e = b[b.length - 1];
                         this.paintArrow(a, d, e);
                     }
                 },
@@ -3434,17 +3444,18 @@
                         b.stroke(),
                         b.closePath();
                 },
+
                 this.paint = function (a) {
                     if (null != this.nodeA && null != !this.nodeZ) {
                         var b = this.getPath(this.nodeIndex);
                         this.path = b,
-                            a.strokeStyle = 'rgba(' + this.strokeColor + ',' +
-                                this.alpha + ')',
+                            a.strokeStyle = 'rgba(' + this.strokeColor + ',' + this.alpha + ')',
                             a.lineWidth = this.lineWidth,
                             this.paintPath(a, b),
                         b && b.length > 0 && this.paintText(a, b);
                     }
                 };
+
             var i = -(Math.PI / 2 + Math.PI / 4);
             this.paintText = function (a, b) {
                 var c = b[0], d = b[b.length - 1];
@@ -3501,13 +3512,14 @@
                 };
         }
 
+        // 拓扑绘制-link-foldLine
         function g(a, b, c) {
             this.initialize = function () {
-                g.prototype.initialize.apply(this, arguments),
-                    this.direction = 'horizontal';
+                g.prototype.initialize.apply(this, arguments), this.direction = 'horizontal';
                 this.serializedProperties.push('direction');
             },
                 this.initialize(a, b, c),
+
                 this.getStartPosition = function () {
                     var a = {
                         x: this.nodeA.cx,
@@ -3522,6 +3534,7 @@
                             a.y -= this.nodeA.height / 2,
                         a;
                 },
+
                 this.getEndPosition = function () {
                     var a = {
                         x: this.nodeZ.cx,
@@ -3602,8 +3615,7 @@
                     this.direction = 'vertical',
                     this.offsetGap = 44;
                 this.serializedProperties.push('direction');
-            }
-                ,
+            },
                 this.initialize(a, b, c),
                 this.getStartPosition = function () {
                     var a = {
@@ -3644,11 +3656,10 @@
                         h = this.bundleGap * a - g / 2,
                         i = this.offsetGap;
                     return 'horizontal' == this.direction ?
-                        (this.nodeA.cx > this.nodeZ.cx && (i = -i),
-                            d.push({
-                                x: b.x,
-                                y: b.y + h,
-                            }),
+                        (this.nodeA.cx > this.nodeZ.cx && (i = -i), d.push({
+                            x: b.x,
+                            y: b.y + h,
+                        }),
                             d.push({
                                 x: b.x + i,
                                 y: b.y + h,
@@ -3660,8 +3671,7 @@
                             d.push({
                                 x: c.x,
                                 y: c.y + h,
-                            })) :
-                        (this.nodeA.cy > this.nodeZ.cy && (i = -i),
+                            })) : (this.nodeA.cy > this.nodeZ.cy && (i = -i),
                             d.push({
                                 x: b.x + h,
                                 y: b.y,
@@ -3705,9 +3715,7 @@
                             a.quadraticCurveTo(f, g, e.x, e.y),
                             a.stroke();
                     }
-                    if (a.stroke(),
-                        a.closePath(),
-                    null != this.arrowsRadius) {
+                    if (a.stroke(), a.closePath(), null != this.arrowsRadius) {
                         var h = b[b.length - 2],
                             i = b[b.length - 1];
                         this.paintArrow(a, h, i);

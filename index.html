@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+    <title>web-topology | 网络拓扑编辑器</title>
+    <meta name="generator" content="Jekyll v3.8.5" />
+    <meta property="og:title" content="web-topology" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="网络拓扑编辑器" />
+    <meta property="og:description" content="网络拓扑编辑器" />
+    <link rel="canonical" href="https://gongxufan.github.io/web-topology/" />
+    <meta property="og:url" content="https://gongxufan.github.io/web-topology/" />
+    <meta property="og:site_name" content="web-topology" />
+    <script type="application/ld+json">
+        {"@type":"WebSite","url":"https://gongxufan.github.io/web-topology/","name":"web-topology","description":"网络拓扑编辑器","headline":"web-topology","@context":"http://schema.org"}</script>
+    <!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/web-topology/css/style.css?v=7c1ed04803712811f5c42532f9caf69f49505bcc">
+</head>
+<body>
+<div class="container-lg px-3 my-5 markdown-body">
+
+
+    <h1 id="web-topology">web-topology</h1>
+    <p>基于jtopo实现的拓扑编辑器，把项目放tomcat才能访问。具体可参考:https://juejin.im/post/5b2b5d686fb9a00e8b252b59</p>
+    <h1 id="update">update</h1>
+    <p>增加直线拐点功能,实现思路很简单，在中间增加一个控制点即可，如需要更多的拐点可以分段增加。</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>js/editor.js
+ //鼠标悬浮
+    var midList = [];
+    this.scene.mouseover(function (e) {
+        if(e.target &amp;&amp; e.target.midNode){
+            e.target.midNode.visible = true;
+            return;
+        }
+        if(e.target &amp;&amp; e.target instanceof JTopo.Link &amp;&amp; !e.target.hasPaintMid &amp;&amp; e.target.lineType == 'line'){
+            var nodeA = e.target.nodeA, nodeZ = e.target.nodeZ;
+            //移除当前连线
+            this.remove(e.target);
+            //重建连线
+            //中间小节点
+            var midNode = new JTopo.CircleNode('');
+            midNode.type = 'tag';
+            midNode.radius = 3;
+            midNode.fillColor = '255,0,0';
+            midNode.alpha = 0.7;
+            midNode.setLocation((nodeA.cx +nodeZ.cx)/2,(nodeA.cy +nodeZ.cy)/2);
+            this.add(midNode)
+            var m = new JTopo.Link(nodeA, midNode);
+            var n = new JTopo.Link(midNode, nodeZ);
+            m.lineType = "line";
+            m.strokeColor = self.config.strokeColor;
+            m.lineWidth = self.config.lineWidth;
+            n.lineType = "line";
+            n.strokeColor = self.config.strokeColor;
+            n.lineWidth = self.config.lineWidth;
+            this.add(m);
+            this.add(n);
+            m.hasPaintMid = true;
+            m.midNode = midNode;
+            n.hasPaintMid = true;
+            n.midNode = midNode;
+            midList.push(midNode);
+        }
+    });
+    this.scene.mouseout(function (e) {
+        if(e.target == null || (e.target != null &amp;&amp; !e.target instanceof JTopo.Link))
+        for (var i = 0; i &lt; midList.length; i++) {
+            midList[i].visible = false;
+        }
+    });
+</code></pre></div></div>
+    <h1 id="license">License</h1>
+
+    <p>License: GNU GPL v3.0</p>
+
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+<script>anchors.add();</script>
+
+</body>
+</html>
