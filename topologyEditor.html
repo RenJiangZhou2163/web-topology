@@ -205,16 +205,16 @@
                     </td>
                 </tr>
 
-                <!--                <tr>-->
-                <!--                    <td width="100%" align="center">-->
-                <!--                        <div id="SelfExtChange" divType="mode" nodeType="ECVR" draggable="true"-->
-                <!--                             title="使用一台VM主机安装多个网卡进行子网的互通，充当路由控制器">-->
-                <!--                            <div class="title">&nbsp;</div>-->
-                <!--                            <img name="backGroundImg" src="icon/vr-selfdefined.png" class="nodeStyle"/>-->
-                <!--                            <br><span>VM路由控制器</span>-->
-                <!--                        </div>-->
-                <!--                    </td>-->
-                <!--                </tr>-->
+                <tr>
+                    <td width="100%" align="center">
+                        <div id="SelfExtChange" divType="mode" nodeType="ECVR" draggable="true"
+                             title="使用一台VM主机安装多个网卡进行子网的互通，充当路由控制器">
+                            <div class="title">&nbsp;</div>
+                            <img name="backGroundImg" src="icon/vr-selfdefined.png" class="nodeStyle"/>
+                            <br><span>VM路由控制器</span>
+                        </div>
+                    </td>
+                </tr>
 
                 <tr>
                     <td width="100%" align="center">
@@ -223,7 +223,6 @@
                             <img name="backGroundImg" src="static/img/nodeImage/firewall.svg" class="nodeStyle"/>
                             <br><span>防火墙</span>
                         </div>
-
                     </td>
                 </tr>
 
@@ -234,7 +233,6 @@
                             <img name="backGroundImg" src="static/img/nodeImage/f5.svg" class="nodeStyle"/>
                             <br><span>负载均衡</span>
                         </div>
-
                     </td>
                 </tr>
             </table>
@@ -313,7 +311,6 @@
                             <img name="backGroundImg" src="icon/py_VM.png" class="nodeStyle"/>
                             <br><span>物理主机</span>
                         </div>
-
                     </td>
                 </tr>
                 <tr>
@@ -333,7 +330,6 @@
                             <img name="backGroundImg" src="icon/tpIcon_4.png" class="nodeStyle"/>
                             <br><span>物理防火墙</span>
                         </div>
-
                     </td>
                 </tr>
                 <tr>
@@ -343,7 +339,6 @@
                             <img name="backGroundImg" src="icon/py_VR.png" class="nodeStyle"/>
                             <br><span>物理路由器</span>
                         </div>
-
                     </td>
                 </tr>
             </table>
@@ -791,7 +786,6 @@
 
             var text = $(modes[i]).find('span').eq(0).text();
             editor.drag(modes[i], document.getElementById('drawCanvas'), text);
-            console.log(modes[i]);
         }
 
         // 加载网络拓扑图

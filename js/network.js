@@ -1,63 +1,59 @@
-var allNetworkProperties={"EC":[{"title":"网络属性","url":rootPath+"extchange-network.html"}],
-		                  "FW":[],
-		                 "VR":[{"title":"网络属性","url":rootPath+"vr-network.html"},
-                               {"title":"路由器连接信息","url":rootPath+"vr-routerconnectinfo.html"},
-                               {"title":"路由规则集","url":rootPath+"vr-routerrule.html"} ,
-		                       {"title":"防火墙出口规则","url":rootPath+"firewalloutrules.html"},
-		                       {"title":"防火墙入口规则","url":rootPath+"firewallinrules.html"},
-		                       /* {"title":"网络访问规则集","url":rootPath+"vr-networkaclruleset.html"},*/
-                              /* {"title":"端口转发规则","url":rootPath+"vr-portforwardrule.html"},*/
-                               {"title":"网络转发规则信息","url":rootPath+"vr-networkPFRuleSet.html"}
-                              /* {"title":"虚拟路由器类型","url":rootPath+"vr-networktype.html"}*/],
-		    		      "VM":[{"title":"虚拟机属性","url":rootPath+"vm.html"}]
-		                  };
+var allNetworkProperties = {
+    "EC": [{"title": "网络属性", "url": rootPath + "extchange-network.html"}],
+    "FW": [],
+    "VR": [{"title": "网络属性", "url": rootPath + "vr-network.html"},
+        {"title": "路由器连接信息", "url": rootPath + "vr-routerconnectinfo.html"},
+        {"title": "路由规则集", "url": rootPath + "vr-routerrule.html"},
+        {"title": "防火墙出口规则", "url": rootPath + "firewalloutrules.html"},
+        {"title": "防火墙入口规则", "url": rootPath + "firewallinrules.html"},
+        /* {"title":"网络访问规则集","url":rootPath+"vr-networkaclruleset.html"},*/
+        /* {"title":"端口转发规则","url":rootPath+"vr-portforwardrule.html"},*/
+        {"title": "网络转发规则信息", "url": rootPath + "vr-networkPFRuleSet.html"}
+        /* {"title":"虚拟路由器类型","url":rootPath+"vr-networktype.html"}*/],
+    "VM": [{"title": "虚拟机属性", "url": rootPath + "vm.html"}]
+};
 var currentid;
-var NetworkTopology = function(a,b)
-{
-	var c=this;
-	c.props=a;
-	c.control=$(b);
+
+var NetworkTopology = function (a, b) {
+    var c = this;
+    c.props = a;
+    c.control = $(b);
 };
-NetworkTopology.prototype.clearOldPanels=function(b)
-{
-	var c=this,a=c.props,d=a[b];
-	if (c.control)
-	{
-			if (d)
-			{
-				var i;
-				for (i=0;i<d.length;i++)
-				{
-					try {
-						c.control.accordion('remove',d[i]["title"]);
-					} catch (e) {
-					}
-				}
-			}
-	}
+
+NetworkTopology.prototype.clearOldPanels = function (b) {
+    var c = this, a = c.props, d = a[b];
+    if (c.control) {
+        if (d) {
+            var i;
+            for (i = 0; i < d.length; i++) {
+                try {
+                    c.control.accordion('remove', d[i]["title"]);
+                } catch (e) {
+                }
+            }
+        }
+    }
 };
-NetworkTopology.prototype.createNewPanels=function(b,templateid,moduleid)
-{
-	var c=this,a=c.props,d=a[b];
-	if (d)
-	{
-		this.clearOldPanels(b);
-		var i=0;
-		for (i=0;i<d.length;i++)
-		{
-			c.control.accordion('add', {
-				title : d[i]["title"],
-				content : "",
-				selected : false,
-				method : "post",
-				href : "",
-				loadingMessage : "loading..."
-			});
-			var e=c.control.accordion('getPanel',d[i]["title"]);
-			e.panel("refresh",d[i]["url"]+"?templateid="+templateid+"&moduleid="+moduleid);
-		}
-		
-	}
+
+NetworkTopology.prototype.createNewPanels = function (b, templateid, moduleid) {
+    var c = this, a = c.props, d = a[b];
+    if (d) {
+        this.clearOldPanels(b);
+        var i = 0;
+        for (i = 0; i < d.length; i++) {
+            c.control.accordion('add', {
+                title: d[i]["title"],
+                content: "",
+                selected: false,
+                method: "post",
+                href: "",
+                loadingMessage: "loading..."
+            });
+            var e = c.control.accordion('getPanel', d[i]["title"]);
+            e.panel("refresh", d[i]["url"] + "?templateid=" + templateid + "&moduleid=" + moduleid);
+        }
+
+    }
 };
 
 /**
@@ -66,94 +62,91 @@ NetworkTopology.prototype.createNewPanels=function(b,templateid,moduleid)
  * @param templateid
  * @param moduleid
  */
-NetworkTopology.prototype.selectPanel=function(b,templateid,moduleid)
-{
-	return;
-	var c=this,a=c.props;
-	if (!b || !moduleid) return;
-	var m=document.getElementById(moduleid);
-	if (m)
-	{
-		dd=m.nodeType;
-	    if (dd)
-	    {
-	    	d=a[dd];
-			if (d)
-			{
-				var e=c.control.accordion('getPanel',b);
-				if (e)
-				{
-					var i=0;
-					for (i=0;i<d.length;i++)
-					{
-						if (b==d[i]["title"])
-						{
-							e.panel("refresh",d[i]["url"]+"?templateid="+templateid+"&moduleid="+moduleid);
-							break;
-						}
-					}
-				}
-			}
-	    }
-	}
-};
+NetworkTopology.prototype.selectPanel = function (b, templateid, moduleid) {
+    return;
+    var c = this, a = c.props;
 
-NetworkTopology.prototype.saveToplogy = function(toplogyXML){
-	$.ajax({
-		url : rootPath + "topology/saveTopologyXML",
-		async : true,
-		type : "POST",
-		dataType : "json",
-		data:{
-			"topologyXML":toplogyXML,
-			"templateId":com.xjwgraph.Global.templateid
-		},
-		error : function() {
-            jAlert("服务器异常，请稍后重试..");
-		},
-		success : function(response) {
-			var err = response.errorInfo;
-			// 错误处理
-			if (err && err != "ok") {
-				if (err == "logout") {
-					//handleSessionTimeOut();
-					return;
-				} else {
-					alert(err);
-				}
-			} else {
-				jAlert("保存成功");
-			}
-		}
-	});
-};
+    if (!b || !moduleid)
+        return;
 
-NetworkTopology.prototype.getEnvTemplate = function(){
-	var envListRes;
-	$.ajax({
-		url : rootPath + "topology/getAllTemplates",
-		async : false,
-		type : "POST",
-		dataType : "json",
-		data:{
-		},
-		error : function() {
-			alert("服务器异常，请稍后重试..");
-		},
-		success : function(response) {
-			envListRes= response.envList;
-		}
-	});
-	return envListRes;
-};
+    var m = document.getElementById(moduleid);
 
-NetworkTopology.prototype.initPropertyPanle = function(){
-	var c = this;
-	//回退是清除属性面板
-    for(var nodeType in allNetworkProperties){
-    	c.clearOldPanels(nodeType);
+    if (m) {
+        dd = m.nodeType;
+        if (dd) {
+            d = a[dd];
+            if (d) {
+                var e = c.control.accordion('getPanel', b);
+                if (e) {
+                    var i = 0;
+                    for (i = 0; i < d.length; i++) {
+                        if (b == d[i]["title"]) {
+                            e.panel("refresh", d[i]["url"] + "?templateid=" + templateid + "&moduleid=" + moduleid);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 };
+
+NetworkTopology.prototype.saveToplogy = function (toplogyXML) {
+    $.ajax({
+        url: rootPath + "topology/saveTopologyXML",
+        async: true,
+        type: "POST",
+        dataType: "json",
+        data: {
+            "topologyXML": toplogyXML,
+            "templateId": com.xjwgraph.Global.templateid
+        },
+        error: function () {
+            jAlert("服务器异常，请稍后重试..");
+        },
+        success: function (response) {
+            var err = response.errorInfo;
+            // 错误处理
+            if (err && err != "ok") {
+                if (err == "logout") {
+                    //handleSessionTimeOut();
+                    return;
+                } else {
+                    alert(err);
+                }
+            } else {
+                jAlert("保存成功");
+            }
+        }
+    });
+};
+
+NetworkTopology.prototype.getEnvTemplate = function () {
+    var envListRes;
+    $.ajax({
+        url: rootPath + "topology/getAllTemplates",
+        async: false,
+        type: "POST",
+        dataType: "json",
+        data: {},
+        error: function () {
+            alert("服务器异常，请稍后重试..");
+        },
+        success: function (response) {
+            envListRes = response.envList;
+        }
+    });
+    return envListRes;
+};
+
+NetworkTopology.prototype.initPropertyPanle = function () {
+    var c = this;
+    //回退是清除属性面板
+    for (var nodeType in allNetworkProperties) {
+        c.clearOldPanels(nodeType);
+    }
+};
+
 /**
  * 缩放拓扑图
  */

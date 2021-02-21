@@ -1327,7 +1327,7 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
     // 初始化菜单
     this.initMenus();
 
-    // 双击编辑文字
+    // 双击事件处理
     this.scene.dbclick(function (e) {
         if (e.target)
             self.currentNode = e.target;
@@ -1345,10 +1345,10 @@ networkTopologyEditor.prototype.init = function (backImg, templateId, topologyId
             // 子网图形，双击进入子网编辑界面，实现分层网络拓扑设计
             if (nType == 'subnet') {
                 // 新建编辑层先判断当前层是否已经保存好
-                if (!editor.utils.hasUnSavedNode()) {
-                    jAlert('在进入新编辑层之前，请保存好当前编辑层内容!');
-                    return;
-                }
+                // if (!editor.utils.hasUnSavedNode()) {
+                //     jAlert('在进入新编辑层之前，请保存好当前编辑层内容!');
+                //     return;
+                // }
 
                 if (!self.selectLevel) {
                     self.selectLevel = $('#selectLevel');
@@ -2512,12 +2512,15 @@ editor.utils = {
             jAlert('没有找到该节点,请输入完整的节点名称!');
         }
     },
+
     hasUnSavedNode: function () {
         var saved = true;
         editor.stage.childs.forEach(function (s) {
-            if (!saved) return false;
+            if (!saved)
+                return false;
+
             s.childs.forEach(function (n) {
-                //id属性无有效值，说明该节点没有保存到数据库,排除参考线
+                // id属性无有效值，说明该节点没有保存到数据库,排除参考线
                 if (!n.id) {
                     if (n.elementType == 'link') {
                         if (n.lineType != 'rule') {
@@ -2533,7 +2536,8 @@ editor.utils = {
         });
         return saved;
     },
-    //取消出参数节点外所有节点的选中状态
+
+    // 取消出参数节点外所有节点的选中状态
     unSelectAllNodeExcept: function (node) {
         editor.stage.childs.forEach(function (s) {
             s.childs.forEach(function (n) {
@@ -2544,7 +2548,8 @@ editor.utils = {
             });
         });
     },
-    //查找是否当前层已经有子网保存
+
+    // 查找是否当前层已经有子网保存
     hasSavedSubnet: function () {
         var saved = false;
         editor.stage.childs.forEach(function (s) {
@@ -2557,6 +2562,8 @@ editor.utils = {
         });
         return saved;
     },
+
+    //
     getNode: function (id) {
         var node;
         $.ajax({
@@ -2587,6 +2594,7 @@ editor.utils = {
         });
         return node;
     },
+
     saveNode: function (id, nextLevel) {
         var ok = false;
         $.ajax({
